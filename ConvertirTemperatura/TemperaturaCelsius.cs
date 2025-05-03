@@ -1,6 +1,4 @@
-﻿
-
-namespace ConvertirTemperatura
+﻿namespace ConvertirTemperatura
 {
     public class TemperaturaCelsius
     {
@@ -10,10 +8,10 @@ namespace ConvertirTemperatura
 
         public void ConvertirCelsius()
         {
-            Console.WriteLine("========== Conversor de Temperatura Celsius ==========");
+            Console.WriteLine("========== Conversor de Temperatura Celsius =============");
             double celsius = (5 * (fahrenheit - 32) )/ 9; 
             Console.WriteLine("°C = {0}", celsius);
-            Console.ReadKey();
+            Console.ReadLine();
         }
 
     }

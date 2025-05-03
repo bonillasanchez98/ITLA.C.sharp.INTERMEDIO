@@ -1,6 +1,4 @@
-﻿
-
-namespace ConvertirTemperatura
+﻿namespace ConvertirTemperatura
 {
     public class TemperaturaFahrenheit
     {

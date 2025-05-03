@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibroCalificaciones", "Libr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConvertirTemperatura", "ConvertirTemperatura\ConvertirTemperatura.csproj", "{2D40FF5B-EA5A-40EA-99E1-86B5F69814E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConvertirDistancias", "ConvertirDistancias\ConvertirDistancias.csproj", "{FA503D19-7E03-408C-BA1C-EA91F0E6BE66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2D40FF5B-EA5A-40EA-99E1-86B5F69814E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D40FF5B-EA5A-40EA-99E1-86B5F69814E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D40FF5B-EA5A-40EA-99E1-86B5F69814E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA503D19-7E03-408C-BA1C-EA91F0E6BE66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA503D19-7E03-408C-BA1C-EA91F0E6BE66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA503D19-7E03-408C-BA1C-EA91F0E6BE66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA503D19-7E03-408C-BA1C-EA91F0E6BE66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
