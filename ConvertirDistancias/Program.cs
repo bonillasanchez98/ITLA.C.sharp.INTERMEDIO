@@ -9,6 +9,7 @@
             Kilometros km = new Kilometros();
             km.ConvertirKM();
 
+            //Creacion de objeto de tipo Millas
             Millas millas = new Millas();
             millas.ConvertirMillas();
         }

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Practica_03_05_2025.Entidades.Curso">
+    <Position X="2.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EAAEAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Entidades\Curso.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Practica_03_05_2025.Entidades.CursoPresencial">
+    <Position X="3.5" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>FAAAAAAAAAAAAAAAAAAAAIAEAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Entidades\CursoPresencial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Practica_03_05_2025.Entidades.CursoVirtuales">
+    <Position X="1" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>FAAAAAAAAAAAAAAAAAAAAAAEACAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Entidades\CursoVirtuales.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Practica_03_05_2025.Entidades.Auditoria">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QCAAAAAAAAAAAAAAAAAAkAAAAAAAAAAACABAAAAAAAA=</HashCode>
+      <FileName>Entidades\Auditoria.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Practica_03_05_2025.Entidades.Persona">
+    <Position X="8.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAIEACAAgAIAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Entidades\Persona.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Practica_03_05_2025.Entidades.Estudiante">
+    <Position X="6.5" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EAAAQAACAAACAAAAAAAAAAQAAAIAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Entidades\Estudiante.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Practica_03_05_2025.Entidades.Docente">
+    <Position X="9" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAEAAAAAAAAAAAAQAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entidades\Docente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Practica_03_05_2025.Entidades.Empleado">
+    <Position X="10.25" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAACAEAAAAAAQAAAAAAAAAAgAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Entidades\Empleado.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Practica_03_05_2025.Entidades.EmpleadoAdministrativo">
+    <Position X="12" Y="7" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAEAAAAAUAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entidades\EmpleadoAdministrativo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
