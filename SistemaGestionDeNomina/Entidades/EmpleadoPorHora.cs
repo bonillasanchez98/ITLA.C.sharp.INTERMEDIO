@@ -1,5 +1,4 @@
-﻿
-namespace SistemaGestionDeNomina.Entidades
+﻿namespace SistemaGestionDeNomina.Entidades
 {
     //Ganan segun las horas trabajadas y reciben pago adicional por horas extras si exceden las 40 horas.
     public sealed class EmpleadoPorHora : Empleado
@@ -17,10 +16,10 @@ namespace SistemaGestionDeNomina.Entidades
 
         public override void CalcularPago()
         {
-            bool esHoraExtra = _HorasTrabajadas < 40 && _HorasTrabajadas > 0;
+            bool noEsHoraExtra = _HorasTrabajadas < 40 && _HorasTrabajadas > 0;
             _Sueldo = _HorasTrabajadas * 6; // 6 = dias trabajados en la semana
             
-            if (esHoraExtra)
+            if (noEsHoraExtra)
             {
                 Console.WriteLine($"TOTAL HORAS: {_HorasTrabajadas}h");
                 Console.WriteLine($"SUELDO: ${_Sueldo}");
