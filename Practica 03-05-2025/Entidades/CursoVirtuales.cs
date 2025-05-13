@@ -3,10 +3,11 @@
     public sealed class CursoVirtuales : Curso
     {
         public string URL { get; set; }
-        public string Dias { get; set; }
-        public int HoraInicio { get; set; }
-        public int HoraFin { get; set; }
 
+        public override void Inscribirse(Estudiante estudiante)
+        {   //Logica de inscripcion de los cursos virtuales
+            Console.WriteLine("Inscribiendo estudiante en curso virtual");
+        }
 
         public override string ObtenerInformacion()
         {

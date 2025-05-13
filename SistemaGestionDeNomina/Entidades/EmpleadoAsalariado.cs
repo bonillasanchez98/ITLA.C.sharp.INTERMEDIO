@@ -1,4 +1,6 @@
-﻿namespace SistemaGestionDeNomina.Entidades
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace SistemaGestionDeNomina.Entidades
 {
     //Reciben un sueldo fijo semanal sin considerar las horas trabajadas.
     public sealed class EmpleadoAsalariado : Empleado
@@ -6,18 +8,24 @@
         public EmpleadoAsalariado(){}
 
         public EmpleadoAsalariado(string nombre, string apellido, string correo, string departamento, double sueldo) :
-            base(nombre, apellido, correo, departamento)
+            base(nombre, apellido, correo, departamento, sueldo)
         {
-            _Sueldo = sueldo;
+           
         }
 
-        public double _Sueldo { get; set; }
-
-        public override void CalcularPago()
+        public override double CalcularPago()
         {
-            Console.WriteLine($"SUELDO FIJO: ${_Sueldo}");
-            
+            return _Sueldo;
         }
 
+        public override void MostrarInformacion()
+        {
+            Console.WriteLine("=====EMPLEADO ASALARIADO=====");
+            Console.WriteLine($"NOMBRE: {_Nombre} {_Apellido}\n" +
+                              $"CORREO: {_Correo}\n" +
+                              $"DEPARTAMENTO: {_Departamento}\n"+
+                              $"SUELDO FIJO: ${_Sueldo}");
+            Console.ReadLine();
+        }
     }
 }

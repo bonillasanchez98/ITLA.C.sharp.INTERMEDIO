@@ -3,36 +3,43 @@
   <Class Name="SistemaGestionDeNomina.Entidades.Empleado">
     <Position X="5.5" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>EAAAAIAAAAAAAAAEAAAAgAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>EAAAAIAAAAAAAAQAAAAAgAIAAAAAAAAAAAgAAAAABAA=</HashCode>
       <FileName>Entidades\Empleado.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SistemaGestionDeNomina.Entidades.EmpleadoAsalariado">
     <Position X="1.75" Y="0.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>EAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Entidades\EmpleadoAsalariado.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SistemaGestionDeNomina.Entidades.EmpleadoPorHora">
     <Position X="8.75" Y="0.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAAQAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <HashCode>EAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
       <FileName>Entidades\EmpleadoPorHora.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SistemaGestionDeNomina.Entidades.EmpleadoPorComision">
-    <Position X="7.5" Y="4" Width="3" />
+  <Class Name="SistemaGestionDeNomina.Entidades.EmpleadoPorComisionNormal">
+    <Position X="8.5" Y="4" Width="3" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAAQAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Entidades\EmpleadoPorComision.cs</FileName>
+      <HashCode>EAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entidades\EmpleadoPorComisionNormal.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SistemaGestionDeNomina.Entidades.EmpleadoAsalariadoConComision">
-    <Position X="1.75" Y="4" Width="3.5" />
+    <Position X="1.25" Y="4" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAAQAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>EAAAAIAAAAAIAAAAAAAABAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>Entidades\EmpleadoAsalariadoConComision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SistemaGestionDeNomina.Entidades.EmpleadoPorComision">
+    <Position X="5.75" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EAAAAIAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entidades\EmpleadoPorComision.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

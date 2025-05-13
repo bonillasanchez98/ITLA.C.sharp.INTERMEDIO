@@ -3,9 +3,14 @@
     public sealed class CursoPresencial : Curso
     {
         public string Ubicacion { get; set; }
-        public string Dias { get; set; }
-        public int HoraInicio { get; set; }
-        public int HoraFin{ get; set; }
+        public string Aula { get; set; }
+
+
+        public override void Inscribirse(Estudiante estudiante)
+        {
+            //Logica de inscripcion de los cursos presenciales
+            Console.WriteLine("Inscribiendo a estudiante en curso presencial");
+        }
 
         public override string ObtenerInformacion()
         {

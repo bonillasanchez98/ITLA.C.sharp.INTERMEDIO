@@ -5,31 +5,33 @@
     {
         public EmpleadoPorHora(){}
 
-        public EmpleadoPorHora(string nombre, string apellido, string correo, string departamento, int horasTrabajadas) :
-            base(nombre, apellido, correo, departamento)
-        {
-            this._HorasTrabajadas = horasTrabajadas;
-        }
-
         public int _HorasTrabajadas { get; set; }
-        private double _Sueldo { get; set; }
 
-        public override void CalcularPago()
+        public override double CalcularPago()
         {
             bool noEsHoraExtra = _HorasTrabajadas < 40 && _HorasTrabajadas > 0;
             _Sueldo = _HorasTrabajadas * 6; // 6 = dias trabajados en la semana
             
-            if (noEsHoraExtra)
+            if (noEsHoraExtra) //Si no supera las 40h de trabajo, se retorna su sueldo segun las horas trabajadas
             {
-                Console.WriteLine($"TOTAL HORAS: {_HorasTrabajadas}h");
-                Console.WriteLine($"SUELDO: ${_Sueldo}");
+                return _Sueldo;
             }
+            else //Si hizo horas extras, se le agregara un pago de $60.0 al sueldo
+            {
+                _Sueldo = (_HorasTrabajadas * 6) + 60.0; 
+                return _Sueldo;
+            }
+        }
 
-            else
-            {
-                Console.WriteLine($"HORAS TRABAJADAS: {_HorasTrabajadas}");
-                Console.WriteLine($"SUELDO: ${_Sueldo} --> *Recibe pago extra*");
-            }
+        public override void MostrarInformacion()
+        {
+            Console.WriteLine("=====EMPLEADO POR HORA=====");
+            Console.WriteLine($"NOMBRE: {_Nombre} {_Apellido}\n" +
+                              $"CORREO: {_Correo}\n" +
+                              $"DEPARTAMENTO: {_Departamento}\n" +
+                              $"HORAS TRABAJADAS: {_HorasTrabajadas}h\n" +
+                              $"SUELDO: ${_Sueldo}");
+            Console.ReadLine();
         }
     }
 }
