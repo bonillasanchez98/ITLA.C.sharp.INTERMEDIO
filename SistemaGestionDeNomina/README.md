@@ -47,6 +47,7 @@ La empresa quiere desarrollar una aplicación que le permita gestionar la nómin
 > En esta clase se encuentra el método **Main**, el cual será el punto de entrada a la aplicación.
 > Aquí se construyen los objetos de cada una de las categorías de empleados,
 > luego de la creación de cada objeto se llama a los métodos **CalcularPago** y **MostrarInformacion**.
+
 ![image](https://github.com/user-attachments/assets/05f821ec-bc8e-4b5e-8acd-e0fe50771766)
 ![image](https://github.com/user-attachments/assets/c3c5c46d-9b7a-4427-a055-4c7d5f6e7e7a)
 
