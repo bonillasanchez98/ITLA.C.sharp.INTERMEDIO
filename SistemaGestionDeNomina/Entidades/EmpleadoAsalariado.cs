@@ -1,6 +1,4 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace SistemaGestionDeNomina.Entidades
+﻿namespace SistemaGestionDeNomina.Entidades
 {
     //Reciben un sueldo fijo semanal sin considerar las horas trabajadas.
     public sealed class EmpleadoAsalariado : Empleado
