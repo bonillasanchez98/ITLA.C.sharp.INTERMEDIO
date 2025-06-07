@@ -25,6 +25,8 @@ namespace Biblio.Web.Data
 
             try
             {
+                _logger.LogInformation("Iniciando procedimiento de guardado de categoria...");
+
                 if(categoria == null)
                     Opresult = OperationResult.Failure("Categoria no puede ser nulo.");
                 if (string.IsNullOrEmpty(categoria!.Nombre))
@@ -35,7 +37,6 @@ namespace Biblio.Web.Data
                 {
                     using (var command = new SqlCommand("Core.GuardandoCategorias", conn))
                     {
-                        _logger.LogInformation("Iniciando procedimiento de guardado de categoria...");
 
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@p_NombreCategoria", categoria!.Nombre);
@@ -76,11 +77,12 @@ namespace Biblio.Web.Data
             OperationResult Opresult = new OperationResult();
             try
             {
+                _logger.LogInformation("Iniciando procedimiento para obtener todas las categorias...");
+
                 using(var conn = new SqlConnection(_connString))
                 {
                     using (var command = new SqlCommand("Core.ObteniendoCategorias", conn))
                     {
-                        _logger.LogInformation("Iniciando procedimiento para obtener todas las categorias...");
 
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         await conn.OpenAsync();
@@ -98,12 +100,10 @@ namespace Biblio.Web.Data
                                     Descripcion = reader.GetString(2)
                                 });
                             }
-
+                            Opresult = OperationResult.Success("Categorias obtenidas con exito!", categorias);
                         }
-
-
-                        await conn.OpenAsync();
-                        await command.ExecuteNonQueryAsync();
+                        else
+                            Opresult = OperationResult.Failure("Categorias no encontradas.");
                     }
                 }
             }
@@ -116,19 +116,48 @@ namespace Biblio.Web.Data
             return Opresult;
         }
 
-        public Task<OperationResult> GetCategoryAsync(int id)
+        public async Task<OperationResult> GetCategoryAsync(int id)
         {
             OperationResult Opresult = new OperationResult();
             try
             {
+                _logger.LogInformation($"Iniciando procedimiento para obtener categoria id {id}...");
 
+                if (id <= 0)
+                    Opresult = OperationResult.Failure($"ID {id}, debe ser mayor a cero (0)");
+
+                using (var conn = new SqlConnection(_connString))
+                {
+                    using (var command = new SqlCommand("Core.ObteniendoCategoriaPorId", conn))
+                    {
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@p_CategoriaId", id);
+
+                        await conn.OpenAsync();
+                        var reader = await command.ExecuteReaderAsync();
+
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
+                            Categoria categoria = new Categoria();
+                            categoria.id_Categoria = reader.GetInt32(0);
+                            categoria.Nombre = reader.GetString(1);
+                            categoria.Descripcion = reader.GetString(2);
+
+                            Opresult = OperationResult.Success($"La categoria fue encontrada con exito!.", categoria);
+                        }   
+                        else
+                            Opresult = OperationResult.Failure($"La categoria de ID {id} no fue encontrada");
+                    }
+                }
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error agregando categoria: {ex.Message}", ex.ToString);
+                _logger.LogError($"Error obtiendo la categoria de ID: {id} : {ex.Message}", ex.ToString);
+                Opresult = OperationResult.Failure($"Error: {ex.Message} obteniendo la categoria.");
             }
 
-            return Task.FromResult(Opresult);
+            return Opresult;
         }
 
         public async Task<OperationResult> UpdateCategoryAsync(int id, Categoria categoria)
@@ -137,6 +166,8 @@ namespace Biblio.Web.Data
 
             try
             {
+                _logger.LogInformation("Iniciando procedimiento de actualizado de categoria...");
+
                 if (categoria.id_Categoria != id)
                     Opresult = OperationResult.Failure("Id de categoria no encontrado.");
                 if(categoria == null)
@@ -148,7 +179,6 @@ namespace Biblio.Web.Data
                 {
                     using (var command = new SqlCommand("Core.ActualizandoCategoria", conn))
                     {
-                        _logger.LogInformation("Iniciando procedimiento de actualizado de categoria...");
 
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@p_CategoriaId", categoria.id_Categoria);
