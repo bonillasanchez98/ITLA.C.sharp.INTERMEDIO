@@ -1,3 +1,5 @@
+using Biblio.Web.Data;
+
 namespace BiblioWeb
 {
     public class Program
@@ -8,6 +10,9 @@ namespace BiblioWeb
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            //Aqui se registran todas las Inyecciones de Dependicias
+            builder.Services.AddScoped<ICategoriaDAO, CategoriaDAO>();
 
             var app = builder.Build();
 

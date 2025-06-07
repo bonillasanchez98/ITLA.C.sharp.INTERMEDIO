@@ -6,15 +6,15 @@ namespace Biblio.Web.Data
 {
     public class CategoriaDAO : ICategoriaDAO
     {
-        private readonly string _connString;
+        private string _connString;
         private readonly IConfiguration _configuration;
         private readonly ILogger<CategoriaDAO> _logger;
 
 
         //Inyectando el string de conexion de la BD
-        public CategoriaDAO(string connString, IConfiguration configuration, ILogger<CategoriaDAO> logger)
+        public CategoriaDAO(IConfiguration configuration, ILogger<CategoriaDAO> logger)
         {
-            _connString = connString;
+            _connString = configuration.GetConnectionString("biblioConn");
             _configuration = configuration;
             _logger = logger;
         }
@@ -30,8 +30,9 @@ namespace Biblio.Web.Data
                 if(categoria == null)
                     Opresult = OperationResult.Failure("Categoria no puede ser nulo.");
                 if (string.IsNullOrEmpty(categoria!.Nombre))
-                    Opresult = OperationResult.Failure("El nombre de la categoria no puede ser nulo");
-                
+                    Opresult = OperationResult.Failure("El nombre de la categoria no puede ser nulo.");
+                if (categoria.Descripcion.Length > 150)
+                    Opresult = OperationResult.Failure("La descripcion de la categoria no puede exceder los 150 caracteres.");
 
                 using (var conn = new SqlConnection(_connString))
                 {
@@ -40,10 +41,12 @@ namespace Biblio.Web.Data
 
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@p_NombreCategoria", categoria!.Nombre);
-                        command.Parameters.AddWithValue("@p_UsuarioCreacionId", 1);
+                        command.Parameters.AddWithValue("@p_DescripcionCategoria", categoria.Descripcion);
+                        command.Parameters.AddWithValue("@p_UsuarioCreacionId", 2);
 
                         SqlParameter p_result = new SqlParameter("@p_Result", System.Data.SqlDbType.VarChar)
                         {
+                            Size = 4000,
                             Direction = System.Data.ParameterDirection.Output,
                         };
 
@@ -54,10 +57,10 @@ namespace Biblio.Web.Data
 
                         var result = (string)p_result.Value;
 
-                        if (result != "Ok")
-                            Opresult = OperationResult.Failure($"Error agregando la categoria: {categoria}");
-                        else
+                        if (result == "Ok")
                             Opresult = OperationResult.Success(result);
+                        else
+                            Opresult = OperationResult.Failure($"Error agregando la categoria: {categoria}");
 
                         _logger.LogInformation("Categoria guardada con exito!");
                     }   
@@ -188,6 +191,7 @@ namespace Biblio.Web.Data
 
                         SqlParameter p_result = new SqlParameter("@p_Result", System.Data.SqlDbType.VarChar)
                         {
+                            Size = 4000,
                             Direction = System.Data.ParameterDirection.Output,
                         };
 
