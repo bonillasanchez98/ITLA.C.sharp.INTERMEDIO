@@ -7,6 +7,6 @@ namespace Biblio.Web.Data
         Task<OperationResult> GetAllCategoriesAsync();
         Task<OperationResult> GetCategoryAsync(int id);
         Task<OperationResult> AddCategoryAsync(Categoria categoria);
-        Task<OperationResult> UpdateCategoryAsync(int id, Categoria categoria);
+        Task<OperationResult> UpdateCategoryAsync(Categoria categoria);
     }
 }

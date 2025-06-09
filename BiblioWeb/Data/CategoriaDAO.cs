@@ -43,6 +43,7 @@ namespace Biblio.Web.Data
                         command.Parameters.AddWithValue("@p_NombreCategoria", categoria!.Nombre);
                         command.Parameters.AddWithValue("@p_DescripcionCategoria", categoria.Descripcion);
                         command.Parameters.AddWithValue("@p_UsuarioCreacionId", 2);
+                        command.Parameters.AddWithValue("@p_FechaCreacion", categoria.FechaCreacion);
 
                         SqlParameter p_result = new SqlParameter("@p_Result", System.Data.SqlDbType.VarChar)
                         {
@@ -98,9 +99,10 @@ namespace Biblio.Web.Data
                             {
                                 categorias.Add(new Categoria
                                 {
-                                    id_Categoria = reader.GetInt32(0),
-                                    Nombre = reader.GetString(1),
-                                    Descripcion = reader.GetString(2)
+                                    id_Categoria = Convert.ToInt32(reader["id_Categoria"]),
+                                    Nombre = reader["Nombre"].ToString(),
+                                    Descripcion = reader["Descripcion"].ToString(),
+                                    FechaCreacion = Convert.ToDateTime(reader["fecha_creacion"])
                                 });
                             }
                             Opresult = OperationResult.Success("Categorias obtenidas con exito!", categorias);
@@ -137,15 +139,16 @@ namespace Biblio.Web.Data
                         command.Parameters.AddWithValue("@p_CategoriaId", id);
 
                         await conn.OpenAsync();
-                        var reader = await command.ExecuteReaderAsync();
+                        var reader = command.ExecuteReader();
 
                         if (reader.HasRows)
                         {
                             reader.Read();
                             Categoria categoria = new Categoria();
-                            categoria.id_Categoria = reader.GetInt32(0);
-                            categoria.Nombre = reader.GetString(1);
-                            categoria.Descripcion = reader.GetString(2);
+                            categoria.id_Categoria = Convert.ToInt32(reader["id_Categoria"]);
+                            categoria.Nombre = reader["Nombre"].ToString();
+                            categoria.Descripcion = reader["Descripcion"].ToString();
+                            categoria.FechaCreacion = Convert.ToDateTime(reader["fecha_creacion"]);
 
                             Opresult = OperationResult.Success($"La categoria fue encontrada con exito!.", categoria);
                         }   
@@ -163,7 +166,7 @@ namespace Biblio.Web.Data
             return Opresult;
         }
 
-        public async Task<OperationResult> UpdateCategoryAsync(int id, Categoria categoria)
+        public async Task<OperationResult> UpdateCategoryAsync(Categoria categoria)
         {
             OperationResult Opresult = new OperationResult();
 
@@ -171,8 +174,6 @@ namespace Biblio.Web.Data
             {
                 _logger.LogInformation("Iniciando procedimiento de actualizado de categoria...");
 
-                if (categoria.id_Categoria != id)
-                    Opresult = OperationResult.Failure("Id de categoria no encontrado.");
                 if(categoria == null)
                     Opresult = OperationResult.Failure("Categoria no puede ser nulo.");
                 if (string.IsNullOrEmpty(categoria!.Nombre))
@@ -186,8 +187,7 @@ namespace Biblio.Web.Data
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@p_CategoriaId", categoria.id_Categoria);
                         command.Parameters.AddWithValue("@p_NombreCategoria", categoria.Nombre);
-                        command.Parameters.AddWithValue("@p_FechaMod", DateTime.Now);
-                        command.Parameters.AddWithValue("@p_UsuarioMod", 1);
+                        command.Parameters.AddWithValue("@p_UsuarioMod", 2);
 
                         SqlParameter p_result = new SqlParameter("@p_Result", System.Data.SqlDbType.VarChar)
                         {

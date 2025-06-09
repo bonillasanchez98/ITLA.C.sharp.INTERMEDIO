@@ -36,7 +36,7 @@ namespace BiblioWeb.Controllers
             else
             {
                 ModelState.AddModelError(string.Empty, result.Messagge);
-                return View(new Categoria()); //Si ocurre algun error al llamar las categorias se retorna una lista vacia
+                return View(); //Si ocurre algun error al llamar las categorias se retorna una lista vacia
             }
         }
 
@@ -70,26 +70,26 @@ namespace BiblioWeb.Controllers
         }
 
         // GET: CategoriaController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+                var result = await _categoriaDAO.GetCategoryAsync(id);
+                if (result.IsSuccess)
+                    return View(result.Data);
+                else
+                {
+                    ModelState.AddModelError(string.Empty, result.Messagge);
+                    return View();
+                }
         }
 
         // POST: CategoriaController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Categoria categoria)
+        public async Task<IActionResult> Edit(Categoria categoria)
         {
             try
             {
-                var result = await _categoriaDAO.UpdateCategoryAsync(id, categoria);
-                if(result.IsSuccess)
-                    return RedirectToAction(nameof(Index));
-                else
-                {
-                    ModelState.AddModelError(string.Empty, result.Messagge);
-                    return View(categoria);
-                }
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
