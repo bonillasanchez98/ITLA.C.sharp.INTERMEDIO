@@ -1,4 +1,4 @@
-﻿namespace Biblio.Web.Data
+﻿namespace BiblioWeb.Data.Categoria
 {
     public class Categoria
     {

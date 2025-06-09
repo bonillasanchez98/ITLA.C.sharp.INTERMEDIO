@@ -1,6 +1,6 @@
 ﻿using BiblioWeb.Models.Result;
 
-namespace Biblio.Web.Data
+namespace BiblioWeb.Data.Categoria
 {
     public interface ICategoriaDAO
     {

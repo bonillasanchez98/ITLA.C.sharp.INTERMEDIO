@@ -1,4 +1,5 @@
-using Biblio.Web.Data;
+using BiblioWeb.Data.Categoria;
+using BiblioWeb.Data.Usuario;
 
 namespace BiblioWeb
 {
@@ -12,6 +13,7 @@ namespace BiblioWeb
             builder.Services.AddControllersWithViews();
 
             //Aqui se registran todas las Inyecciones de Dependicias
+            builder.Services.AddScoped<IUsuarioDAO, UsuarioDAO>();
             builder.Services.AddScoped<ICategoriaDAO, CategoriaDAO>();
 
             var app = builder.Build();

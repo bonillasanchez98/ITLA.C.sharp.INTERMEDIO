@@ -1,5 +1,4 @@
-﻿@using BiblioWeb.Data.Categoria
-@model IEnumerable<Categoria>
+﻿@model IEnumerable<BiblioWeb.Data.Usuario.Usuario>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,16 +13,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.id_Categoria)
+                @Html.DisplayNameFor(model => model.id_Usuario)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
+                @Html.DisplayNameFor(model => model.Correo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FechaCreacion)
+                @Html.DisplayNameFor(model => model.Clave)
             </th>
             <th></th>
         </tr>
@@ -32,21 +31,20 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.id_Categoria)
+                @Html.DisplayFor(modelItem => item.id_Usuario)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
+                @Html.DisplayFor(modelItem => item.Correo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FechaCreacion)
+                @Html.DisplayFor(modelItem => item.Clave)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.id_Categoria}) |
-                @Html.ActionLink("Details", "Details", new { id=item.id_Categoria}) |
-                
+                @Html.ActionLink("Edit", "Edit", new { id=item.id_Usuario}) |
+                @Html.ActionLink("Details", "Details", new { id=item.id_Usuario})
             </td>
         </tr>
 }

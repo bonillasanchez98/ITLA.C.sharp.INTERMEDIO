@@ -1,21 +1,22 @@
 ﻿using BiblioWeb.Data.Categoria;
+using BiblioWeb.Data.Usuario;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BiblioWeb.Controllers
 {
-    public class CategoriaController : Controller
+    public class UsuarioController : Controller
     {
-        private readonly ICategoriaDAO _categoriaDAO;
+        private readonly IUsuarioDAO _usuarioDAO;
 
-        public CategoriaController(ICategoriaDAO categoriaDAO)
+        public UsuarioController(IUsuarioDAO usuarioDAO)
         {
-            _categoriaDAO = categoriaDAO;
+            _usuarioDAO = usuarioDAO;
         }
 
-        // GET: CategoriaController
+        // GET: UsuarioController
         public async Task<IActionResult> Index()
         {
-            var result = await _categoriaDAO.GetAllCategoriesAsync();
+            var result = await _usuarioDAO.GetAllUsersAsync();
 
             if (result.IsSuccess)
                 return View(result.Data);
@@ -26,10 +27,10 @@ namespace BiblioWeb.Controllers
             }
         }
 
-        // GET: CategoriaController/Details/5
+        // GET: UsuarioController/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            var result = await _categoriaDAO.GetCategoryAsync(id);
+            var result = await _usuarioDAO.GetUserAsync(id);
             if (result.IsSuccess)
                 return View(result.Data);
             else
@@ -39,26 +40,26 @@ namespace BiblioWeb.Controllers
             }
         }
 
-        // GET: CategoriaController/Create
+        // GET: UsuarioController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: CategoriaController/Create
+        // POST: UsuarioController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Categoria categoria)
+        public async Task<IActionResult> Create(Usuario usuario)
         {
             try
             {
-                var result = await _categoriaDAO.AddCategoryAsync(categoria);
+                var result = await _usuarioDAO.AddUserAsync(usuario);
                 if (result.IsSuccess)
                     return RedirectToAction(nameof(Index));
                 else
                 {
                     ModelState.AddModelError(string.Empty, result.Messagge);
-                    return View(categoria);
+                    return View(usuario);
                 }
 
             }
@@ -68,10 +69,10 @@ namespace BiblioWeb.Controllers
             }
         }
 
-        // GET: CategoriaController/Edit/5
+        // GET: UsuarioController/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-                var result = await _categoriaDAO.GetCategoryAsync(id);
+                var result = await _usuarioDAO.GetUserAsync(id);
                 if (result.IsSuccess)
                     return View(result.Data);
                 else
@@ -81,10 +82,10 @@ namespace BiblioWeb.Controllers
                 }
         }
 
-        // POST: CategoriaController/Edit/5
+        // POST: UsuarioController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Categoria categoria)
+        public async Task<IActionResult> Edit(Usuario usuario)
         {
             try
             {
@@ -96,13 +97,13 @@ namespace BiblioWeb.Controllers
             }
         }
 
-        // GET: CategoriaController/Delete/5
+        // GET: UsuarioController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: CategoriaController/Delete/5
+        // POST: UsuarioController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

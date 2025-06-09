@@ -2,7 +2,7 @@
 using Microsoft.Data.SqlClient;
 using System.Data;
 
-namespace Biblio.Web.Data
+namespace BiblioWeb.Data.Categoria
 {
     public class CategoriaDAO : ICategoriaDAO
     {
@@ -27,7 +27,7 @@ namespace Biblio.Web.Data
             {
                 _logger.LogInformation("Iniciando procedimiento de guardado de categoria...");
 
-                if(categoria == null)
+                if (categoria == null)
                     Opresult = OperationResult.Failure("Categoria no puede ser nulo.");
                 if (string.IsNullOrEmpty(categoria!.Nombre))
                     Opresult = OperationResult.Failure("El nombre de la categoria no puede ser nulo.");
@@ -39,16 +39,16 @@ namespace Biblio.Web.Data
                     using (var command = new SqlCommand("Core.GuardandoCategorias", conn))
                     {
 
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@p_NombreCategoria", categoria!.Nombre);
                         command.Parameters.AddWithValue("@p_DescripcionCategoria", categoria.Descripcion);
                         command.Parameters.AddWithValue("@p_UsuarioCreacionId", 2);
                         command.Parameters.AddWithValue("@p_FechaCreacion", categoria.FechaCreacion);
 
-                        SqlParameter p_result = new SqlParameter("@p_Result", System.Data.SqlDbType.VarChar)
+                        SqlParameter p_result = new SqlParameter("@p_Result", SqlDbType.VarChar)
                         {
                             Size = 4000,
-                            Direction = System.Data.ParameterDirection.Output,
+                            Direction = ParameterDirection.Output,
                         };
 
                         command.Parameters.Add(p_result);
@@ -64,7 +64,7 @@ namespace Biblio.Web.Data
                             Opresult = OperationResult.Failure($"Error agregando la categoria: {categoria}");
 
                         _logger.LogInformation("Categoria guardada con exito!");
-                    }   
+                    }
                 }
             }
             catch (Exception ex)
@@ -83,12 +83,12 @@ namespace Biblio.Web.Data
             {
                 _logger.LogInformation("Iniciando procedimiento para obtener todas las categorias...");
 
-                using(var conn = new SqlConnection(_connString))
+                using (var conn = new SqlConnection(_connString))
                 {
                     using (var command = new SqlCommand("Core.ObteniendoCategorias", conn))
                     {
 
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandType = CommandType.StoredProcedure;
                         await conn.OpenAsync();
                         SqlDataReader reader = command.ExecuteReader();
 
@@ -135,7 +135,7 @@ namespace Biblio.Web.Data
                 {
                     using (var command = new SqlCommand("Core.ObteniendoCategoriaPorId", conn))
                     {
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@p_CategoriaId", id);
 
                         await conn.OpenAsync();
@@ -151,7 +151,7 @@ namespace Biblio.Web.Data
                             categoria.FechaCreacion = Convert.ToDateTime(reader["fecha_creacion"]);
 
                             Opresult = OperationResult.Success($"La categoria fue encontrada con exito!.", categoria);
-                        }   
+                        }
                         else
                             Opresult = OperationResult.Failure($"La categoria de ID {id} no fue encontrada");
                     }
@@ -174,7 +174,7 @@ namespace Biblio.Web.Data
             {
                 _logger.LogInformation("Iniciando procedimiento de actualizado de categoria...");
 
-                if(categoria == null)
+                if (categoria == null)
                     Opresult = OperationResult.Failure("Categoria no puede ser nulo.");
                 if (string.IsNullOrEmpty(categoria!.Nombre))
                     Opresult = OperationResult.Failure("El nombre de la categoria no puede ser nulo");
@@ -184,15 +184,15 @@ namespace Biblio.Web.Data
                     using (var command = new SqlCommand("Core.ActualizandoCategoria", conn))
                     {
 
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@p_CategoriaId", categoria.id_Categoria);
                         command.Parameters.AddWithValue("@p_NombreCategoria", categoria.Nombre);
                         command.Parameters.AddWithValue("@p_UsuarioMod", 2);
 
-                        SqlParameter p_result = new SqlParameter("@p_Result", System.Data.SqlDbType.VarChar)
+                        SqlParameter p_result = new SqlParameter("@p_Result", SqlDbType.VarChar)
                         {
                             Size = 4000,
-                            Direction = System.Data.ParameterDirection.Output,
+                            Direction = ParameterDirection.Output,
                         };
 
                         command.Parameters.Add(p_result);
