@@ -1,41 +1,37 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using BiblioWeb.Data.Categoria;
 using BiblioWeb.Data.Rol;
-using BiblioWeb.Data.Usuario;
-using BiblioWeb.Models.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using BiblioWeb.Helper;
 
 namespace BiblioWeb.Controllers
 {
-    public class UsuarioController : Controller
+    public class RolController : Controller
     {
-        private readonly IUsuarioDAO _usuarioDAO;
         private readonly IRolDAO _rolDAO;
 
-        public UsuarioController(IUsuarioDAO usuarioDAO, IRolDAO rolDAO)
+        public RolController(IRolDAO rolDAO)
         {
-            _usuarioDAO = usuarioDAO;
             _rolDAO = rolDAO;
         }
 
-        // GET: UsuarioController
+        // GET: RolController
         public async Task<IActionResult> Index()
         {
-            var result = await _usuarioDAO.GetAllUsersAsync();
+            var result = await _rolDAO.GetAllRoleAsync();
 
             if (result.IsSuccess)
                 return View(result.Data);
             else
             {
                 ModelState.AddModelError(string.Empty, result.Messagge);
-                return View(new List<Usuario>()); //Si ocurre algun error al llamar las categorias se retorna una lista vacia
+                return View(new List<Rol>()); //Si ocurre algun error al llamar las categorias se retorna una lista vacia
             }
         }
 
-        // GET: UsuarioController/Details/5
+        // GET: RolController/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            var result = await _usuarioDAO.GetUserAsync(id);
+            var result = await _rolDAO.GetRoleAsync(id);
             if (result.IsSuccess)
                 return View(result.Data);
             else
@@ -45,56 +41,52 @@ namespace BiblioWeb.Controllers
             }
         }
 
-        // GET: UsuarioController/Create
-        public async Task<IActionResult> Create()
+        // GET: RolController/Create
+        public ActionResult Create()
         {
-            
-            ViewBag.Roles = RolesHelper.GetRols();
             return View();
         }
 
-        // POST: UsuarioController/Create
+        // POST: RolController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Usuario usuario)
+        public async Task<IActionResult> Create(Rol rol)
         {
             try
             {
-                var result = await _usuarioDAO.AddUserAsync(usuario);
+                var result = await _rolDAO.AddRoleAsync(rol);
                 if (result.IsSuccess)
-                {
                     return RedirectToAction(nameof(Index));
-                }
                 else
                 {
                     ModelState.AddModelError(string.Empty, result.Messagge);
-                    return View(usuario);
+                    return View(rol);
                 }
 
             }
             catch
             {
-                return RedirectToAction(nameof(Index));
+                return View();
             }
         }
 
-        // GET: UsuarioController/Edit/5
+        // GET: RolController/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-                var result = await _usuarioDAO.GetUserAsync(id);
-                if (result.IsSuccess)
-                    return View(result.Data);
-                else
-                {
-                    ModelState.AddModelError(string.Empty, result.Messagge);
-                    return View();
-                }
+            var result = await _rolDAO.GetRoleAsync(id);
+            if (result.IsSuccess)
+                return View(result.Data);
+            else
+            {
+                ModelState.AddModelError(string.Empty, result.Messagge);
+                return View();
+            }
         }
 
-        // POST: UsuarioController/Edit/5
+        // POST: RolController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Usuario usuario)
+        public ActionResult Edit(int id, IFormCollection collection)
         {
             try
             {
@@ -106,13 +98,13 @@ namespace BiblioWeb.Controllers
             }
         }
 
-        // GET: UsuarioController/Delete/5
+        // GET: RolController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: UsuarioController/Delete/5
+        // POST: RolController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

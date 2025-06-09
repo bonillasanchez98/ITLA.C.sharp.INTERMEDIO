@@ -16,14 +16,15 @@
                 @Html.DisplayNameFor(model => model.id_Usuario)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Rol_id)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Correo)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Clave)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -34,13 +35,13 @@
                 @Html.DisplayFor(modelItem => item.id_Usuario)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Rol_id)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Correo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Clave)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.id_Usuario}) |

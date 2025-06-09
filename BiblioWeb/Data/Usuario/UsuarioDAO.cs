@@ -1,5 +1,4 @@
-﻿using BiblioWeb.Data.Categoria;
-using BiblioWeb.Models.Result;
+﻿using BiblioWeb.Models.Result;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -9,9 +8,9 @@ namespace BiblioWeb.Data.Usuario
     {
         private string _connString;
         private readonly IConfiguration _configuration;
-        private readonly ILogger<CategoriaDAO> _logger;
+        private readonly ILogger<UsuarioDAO> _logger;
 
-        public UsuarioDAO(IConfiguration configuration, ILogger<CategoriaDAO> logger)
+        public UsuarioDAO(IConfiguration configuration, ILogger<UsuarioDAO> logger)
         {
             _connString = configuration.GetConnectionString("biblioConn");
             _configuration = configuration;
@@ -30,18 +29,20 @@ namespace BiblioWeb.Data.Usuario
                     Opresult = OperationResult.Failure("Usuario no puede ser nulo.");
                 if (string.IsNullOrEmpty(usuario!.Nombre))
                     Opresult = OperationResult.Failure("El nombre del usuario no puede ser nulo.");
+                if(usuario.Rol_id >= 0)
+                    Opresult = OperationResult.Failure("El rol del usuario no puede ser nulo.");
                 if (string.IsNullOrEmpty(usuario.Correo))
                     Opresult = OperationResult.Failure("El correo del usuario no puede ser nulo.");
                 if (string.IsNullOrEmpty(usuario.Clave))
                     Opresult = OperationResult.Failure("La clave del usuario no puede ser nulo.");
                 
-
                 using (var conn = new SqlConnection(_connString))
                 {
                     using (var command = new SqlCommand("Seguridad.GuardandoUsuarios", conn))
                     {
 
                         command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@p_RolId", usuario.Rol_id);
                         command.Parameters.AddWithValue("@p_Nombre", usuario!.Nombre);
                         command.Parameters.AddWithValue("@p_Correo", usuario.Correo);
                         command.Parameters.AddWithValue("@p_Clave", usuario.Clave);
@@ -102,6 +103,7 @@ namespace BiblioWeb.Data.Usuario
                                 usuarios.Add(new Usuario()
                                 {
                                     id_Usuario = Convert.ToInt32(reader["id_Usuario"]),
+                                    Rol_id = Convert.ToInt32(reader["Rol_id"]),
                                     Nombre = reader["Nombre"].ToString(),
                                     Correo = reader["Correo"].ToString()
                                 });
@@ -147,6 +149,7 @@ namespace BiblioWeb.Data.Usuario
                             reader.Read();
                             Usuario usuario = new Usuario();
                             usuario.id_Usuario = Convert.ToInt32(reader["id_Usuario"]);
+                            usuario.Rol_id = Convert.ToInt32(reader["Rol_id"]);
                             usuario.Nombre = reader["Nombre"].ToString();
                             usuario.Correo = reader["Correo"].ToString();
 
