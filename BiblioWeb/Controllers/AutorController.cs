@@ -1,35 +1,37 @@
-﻿using BiblioWeb.Data.Rol;
+﻿using BiblioWeb.Data.Autor;
+using BiblioWeb.Data.Rol;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BiblioWeb.Controllers
 {
-    public class RolController : Controller
+    public class AutorController : Controller
     {
-        private readonly IRolDAO _rolDAO;
+        private readonly IAutorDAO _autorDAO;
 
-        public RolController(IRolDAO rolDAO)
+        public AutorController(IAutorDAO autorDAO)
         {
-            _rolDAO = rolDAO;
+            _autorDAO = autorDAO;
         }
 
-        // GET: RolController
+
+        // GET: AutorController
         public async Task<IActionResult> Index()
         {
-            var result = await _rolDAO.GetAllRoleAsync();
+            var result = await _autorDAO.GetAllAuthorsAsync();
 
             if (result.IsSuccess)
                 return View(result.Data);
             else
             {
                 ModelState.AddModelError(string.Empty, result.Messagge);
-                return View(new List<Rol>()); //Si ocurre algun error al llamar las categorias se retorna una lista vacia
+                return View(new List<Autor>()); //Si ocurre algun error al llamar las categorias se retorna una lista vacia
             }
         }
 
-        // GET: RolController/Details/5
+        // GET: AutorController/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            var result = await _rolDAO.GetRoleAsync(id);
+            var result = await _autorDAO.GetAuthorAsync(id);
             if (result.IsSuccess)
                 return View(result.Data);
             else
@@ -39,26 +41,26 @@ namespace BiblioWeb.Controllers
             }
         }
 
-        // GET: RolController/Create
+        // GET: AutorController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: RolController/Create
+        // POST: AutorController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Rol rol)
+        public async Task<IActionResult> Create(Autor autor)
         {
             try
             {
-                var result = await _rolDAO.AddRoleAsync(rol);
+                var result = await _autorDAO.AddAuthorAsync(autor);
                 if (result.IsSuccess)
                     return RedirectToAction(nameof(Index));
                 else
                 {
                     ModelState.AddModelError(string.Empty, result.Messagge);
-                    return View(rol);
+                    return View(autor);
                 }
 
             }
@@ -68,10 +70,10 @@ namespace BiblioWeb.Controllers
             }
         }
 
-        // GET: RolController/Edit/5
+        // GET: AutorController/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            var result = await _rolDAO.GetRoleAsync(id);
+            var result = await _autorDAO.GetAuthorAsync(id);
             if (result.IsSuccess)
                 return View(result.Data);
             else
@@ -81,7 +83,7 @@ namespace BiblioWeb.Controllers
             }
         }
 
-        // POST: RolController/Edit/5
+        // POST: AutorController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -96,13 +98,13 @@ namespace BiblioWeb.Controllers
             }
         }
 
-        // GET: RolController/Delete/5
+        // GET: AutorController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: RolController/Delete/5
+        // POST: AutorController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
