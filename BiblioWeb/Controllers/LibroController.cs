@@ -1,36 +1,36 @@
-﻿using BiblioWeb.Data.Autor;
+﻿using BiblioWeb.Data.Libro;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BiblioWeb.Controllers
 {
-    public class AutorController : Controller
+    public class LibroController : Controller
     {
-        private readonly IAutorDAO _autorDAO;
+        private readonly ILibroDAO _libroDAO;
 
-        public AutorController(IAutorDAO autorDAO)
+        public LibroController(ILibroDAO libroDAO)
         {
-            _autorDAO = autorDAO;
+            _libroDAO = libroDAO;
         }
 
-
-        // GET: AutorController
+        // GET: LibroController
         public async Task<IActionResult> Index()
         {
-            var result = await _autorDAO.GetAllAuthorsAsync();
-
-            if (result.IsSuccess)
-                return View(result.Data);
+            var restul = await _libroDAO.GetAllBooksAsync();
+            if (restul.IsSuccess)
+            {
+                return View(restul.Data);
+            }
             else
             {
-                ModelState.AddModelError(string.Empty, result.Messagge);
-                return View(new List<Autor>()); //Si ocurre algun error al llamar las categorias se retorna una lista vacia
+                ModelState.AddModelError(string.Empty, restul.Messagge);
+                return View(new List<Libro>());
             }
         }
 
-        // GET: AutorController/Details/5
+        // GET: LibroController/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            var result = await _autorDAO.GetAuthorAsync(id);
+            var result = await _libroDAO.GetBookAsync(id);
             if (result.IsSuccess)
                 return View(result.Data);
             else
@@ -40,26 +40,26 @@ namespace BiblioWeb.Controllers
             }
         }
 
-        // GET: AutorController/Create
+        // GET: LibroController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: AutorController/Create
+        // POST: LibroController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Autor autor)
+        public async Task<IActionResult> Create(Libro libro)
         {
             try
             {
-                var result = await _autorDAO.AddAuthorAsync(autor);
+                var result = await _libroDAO.AddBookAsync(libro);
                 if (result.IsSuccess)
                     return RedirectToAction(nameof(Index));
                 else
                 {
                     ModelState.AddModelError(string.Empty, result.Messagge);
-                    return View(autor);
+                    return View(libro);
                 }
 
             }
@@ -69,20 +69,20 @@ namespace BiblioWeb.Controllers
             }
         }
 
-        // GET: AutorController/Edit/5
+        // GET: LibroController/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            var result = await _autorDAO.GetAuthorAsync(id);
+            var result = await _libroDAO.GetBookAsync(id);
             if (result.IsSuccess)
                 return View(result.Data);
             else
             {
                 ModelState.AddModelError(string.Empty, result.Messagge);
-                return View();
+                return View(); //Si ocurre algun error al llamar las categorias se retorna una lista vacia
             }
         }
 
-        // POST: AutorController/Edit/5
+        // POST: LibroController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -97,13 +97,13 @@ namespace BiblioWeb.Controllers
             }
         }
 
-        // GET: AutorController/Delete/5
+        // GET: LibroController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: AutorController/Delete/5
+        // POST: LibroController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

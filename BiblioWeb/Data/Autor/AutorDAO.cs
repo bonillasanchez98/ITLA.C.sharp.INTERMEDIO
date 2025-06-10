@@ -10,9 +10,9 @@ namespace BiblioWeb.Data.Autor
     {
         private string _connString;
         private readonly IConfiguration _configuration;
-        private readonly ILogger<CategoriaDAO> _logger;
+        private readonly ILogger<AutorDAO> _logger;
 
-        public AutorDAO(IConfiguration configuration, ILogger<CategoriaDAO> logger)
+        public AutorDAO(IConfiguration configuration, ILogger<AutorDAO> logger)
         {
             _connString = configuration.GetConnectionString("biblioConn");
             _configuration = configuration;

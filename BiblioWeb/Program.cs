@@ -1,5 +1,6 @@
 using BiblioWeb.Data.Autor;
 using BiblioWeb.Data.Categoria;
+using BiblioWeb.Data.Libro;
 using BiblioWeb.Data.Rol;
 using BiblioWeb.Data.Usuario;
 
@@ -19,6 +20,8 @@ namespace BiblioWeb
             builder.Services.AddScoped<ICategoriaDAO, CategoriaDAO>();
             builder.Services.AddScoped<IRolDAO, RolDAO>();
             builder.Services.AddScoped<IAutorDAO, AutorDAO>();
+            builder.Services.AddScoped<ILibroDAO, LibroDAO>();
+            builder.Services.AddScoped<ILibroDAO, LibroDAO>();
 
             var app = builder.Build();
 
