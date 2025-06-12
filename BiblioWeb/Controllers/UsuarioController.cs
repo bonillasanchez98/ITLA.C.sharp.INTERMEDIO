@@ -48,8 +48,12 @@ namespace BiblioWeb.Controllers
         // GET: UsuarioController/Create
         public async Task<IActionResult> Create()
         {
-            
-            ViewBag.Roles = RolesHelper.GetRols();
+
+            var viewModel = new UsuarioViewModel();
+            var rolesResult = _rolDAO.GetAllRoleAsync().Result.Data;
+
+            viewModel.RolSelectList = rolesResult;
+            ViewBag.Roles = viewModel;
             return View();
         }
 

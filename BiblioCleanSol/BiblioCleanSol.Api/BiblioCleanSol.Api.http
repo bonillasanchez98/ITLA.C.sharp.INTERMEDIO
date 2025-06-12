@@ -1,0 +1,6 @@
+@BiblioCleanSol.Api_HostAddress = http://localhost:5263
+
+GET {{BiblioCleanSol.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

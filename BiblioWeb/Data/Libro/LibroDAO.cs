@@ -124,7 +124,6 @@ namespace BiblioWeb.Data.Libro
             return Opresult;
         }
         
-
         public async Task<OperationResult> GetBookAsync(int id)
         {
             OperationResult Opresult = new OperationResult();
