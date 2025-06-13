@@ -1,4 +1,5 @@
 ﻿using BiblioCleanSol.Application.Interfaces.Repositories.Libros;
+using BiblioCleanSol.Domain.Base;
 using BiblioCleanSol.Domain.Entities.Libros;
 using BiblioCleanSol.Persistence.Base;
 using BiblioCleanSol.Persistence.Context;
@@ -14,7 +15,10 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
 
         //Los metodos del padre se deben llamar a traves del override.
         //Cada metodo debe implementar la logica de negocio que se necesite antes de: guardar, editar y obtener un Categoria.
-
+        public override Task<OperationResult> GuardarAsync(Categoria categoria)
+        {
+            return base.GuardarAsync(categoria);
+        }
 
 
         //Metodo adicional que esta entidad pueda necesitar.

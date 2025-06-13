@@ -1,4 +1,5 @@
 ﻿using BiblioCleanSol.Application.Interfaces.Repositories.Prestamos;
+using BiblioCleanSol.Domain.Base;
 using BiblioCleanSol.Domain.Entities.Prestamo;
 using BiblioCleanSol.Persistence.Base;
 using BiblioCleanSol.Persistence.Context;
@@ -14,7 +15,10 @@ namespace BiblioCleanSol.Persistence.Repositories.Prestamos
 
         //Los metodos del padre se deben llamar a traves del override.
         //Cada metodo debe implementar la logica de negocio que se necesite antes de: guardar, editar y obtener un Prestamo.
-
+        public override Task<OperationResult> GuardarAsync(Prestamo prestamo)
+        {
+            return base.GuardarAsync(prestamo);
+        }
 
         //Metodo adicional que esta entidad pueda necesitar.
     }
