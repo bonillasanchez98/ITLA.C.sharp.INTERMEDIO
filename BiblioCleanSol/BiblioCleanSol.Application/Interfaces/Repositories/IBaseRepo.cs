@@ -15,35 +15,40 @@ namespace BiblioCleanSol.Application.Interfaces.Repositories
         /// <param name="filtro"></param>
         /// <returns></returns>
         Task<OperationResult> ObtenerTodosAsync(Expression<Func<TEntity, bool>> filtro);
+
         /// <summary>
         /// Metodo para obtener una entidad por su id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         Task<OperationResult> ObtenerPorIdAsync(int id);
+
         /// <summary>
         /// Metodo para guardar una entidad.
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
         Task<OperationResult> GuardarAsync(TEntity entity);
+
         /// <summary>
         /// Metodo para editar una entidad.
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
         Task<OperationResult> EditarAsync(TEntity entity);
+
         /// <summary>
         /// Metodo para borrar una entidad (Borrado logico).
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
         Task<OperationResult> BorrarAsync(TEntity entity);
+
         /// <summary>
         /// Metodo para determinar su una entidad existe segun el filtro parametrizado.
         /// </summary>
         /// <param name="filtro"></param>
         /// <returns></returns>
-        Task<OperationResult> ExisteAsyn(Expression<Func<TEntity, bool>> filtro);
+        Task<bool> ExisteAsyn(Expression<Func<TEntity, bool>> filtro);
     }
 }

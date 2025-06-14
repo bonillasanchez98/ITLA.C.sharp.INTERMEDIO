@@ -160,12 +160,16 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
         /// </summary>
         /// <param name="filtro"></param>
         /// <returns></returns>
-        public override Task<OperationResult> ObtenerTodosAsync(Expression<Func<Autor, bool>> filtro) {
-            filtro = e => e.Habilitado == true;
-            
-            result = OperationResult.Success($"Autores: {filtro}");
-            return base.ExisteAsyn(filtro);
-        }
+        //public override async Task<OperationResult> ObtenerTodosAsync(Expression<Func<Autor, bool>> filtro)
+        //{
+        //    var existeAutor = await base.ExisteAsyn(a => a.AutorId <= 0).ConfigureAwait(false);
+        //    if (existeAutor)
+        //    {
+        //        result = OperationResult.Failure($"Id de autor no existe");
+        //    }
+        //    result = OperationResult.Success($"Autores: {result.Data}");
+        //    return base.ObtenerTodosAsync();
+        //}
 
         //Aqui irian los contratos de IAutorRepo.
 

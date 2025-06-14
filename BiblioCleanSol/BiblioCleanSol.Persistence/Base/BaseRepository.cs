@@ -71,29 +71,9 @@ namespace BiblioCleanSol.Persistence.Base
         /// </summary>
         /// <param name="filtro"></param>
         /// <returns></returns>
-        public virtual async Task<OperationResult> ExisteAsyn(Expression<Func<TEntity, bool>> filtro)
+        public async Task<bool> ExisteAsyn(Expression<Func<TEntity, bool>> filtro)
         {
-            OperationResult opResult = new OperationResult();
-            try
-            {
-                //Validando si existe algun elemento segun el criterio de busqueda (filtro [lamda<TEntity, bool>])
-                var existe = await _dbSet.AnyAsync(filtro);
-                if (existe)
-                {
-                    opResult = OperationResult.Success($"Entidad {typeof(TEntity)} existe en la BD.");
-                    return opResult;
-                }
-                else
-                {
-                    opResult = OperationResult.Failure($"Entidad {typeof(TEntity)} no existe en la BD.");
-                    return opResult;
-                }
-            }
-            catch (Exception)
-            {
-                opResult = OperationResult.Failure($"Error en la BD, entidad {typeof(TEntity)} no existe.");
-            }
-            return opResult;
+            return await _dbSet.AnyAsync(filtro);
         }
 
         /// <summary>
