@@ -44,7 +44,7 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
             {
                 result = OperationResult.Failure("El nombre del autor no puede ser nulo");
             }
-            if(Regex.IsMatch(autor.Nombre, PATTERN))
+            if(!Regex.IsMatch(autor.Nombre, PATTERN))
             {
                 result = OperationResult.Failure("El nombre esta en formato invalido");
             }
@@ -58,7 +58,7 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
             {
                 result = OperationResult.Failure("El apellido del autor no puede ser nulo");
             }
-            if(Regex.IsMatch(autor.Apellido, PATTERN))
+            if(!Regex.IsMatch(autor.Apellido, PATTERN))
             {
                 result = OperationResult.Failure("El apellido del autor debe ser de un formato valido");
             }
@@ -68,7 +68,7 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
             {
                 result = OperationResult.Failure("La nacionalidad del autor no puede ser nula");
             }
-            if(Regex.IsMatch(autor.Nacionalidad, PATTERN))
+            if(!Regex.IsMatch(autor.Nacionalidad, PATTERN))
             {
                 result = OperationResult.Failure("La nacionalidad esta en formato invalido");
             }
@@ -101,7 +101,7 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
             {
                 result = OperationResult.Failure("El nombre del autor no puede ser nulo");
             }
-            if (Regex.IsMatch(autor.Nombre, PATTERN))
+            if (!Regex.IsMatch(autor.Nombre, PATTERN))
             {
                 result = OperationResult.Failure("El nombre esta en formato invalido");
             }
@@ -115,7 +115,7 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
             {
                 result = OperationResult.Failure("El apellido del autor no puede ser nulo");
             }
-            if (Regex.IsMatch(autor.Apellido, PATTERN))
+            if (!Regex.IsMatch(autor.Apellido, PATTERN))
             {
                 result = OperationResult.Failure("El apellido del autor debe ser de un formato valido");
             }
@@ -125,7 +125,7 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
             {
                 result = OperationResult.Failure("La nacionalidad del autor no puede ser nula");
             }
-            if (Regex.IsMatch(autor.Nacionalidad, PATTERN))
+            if (!Regex.IsMatch(autor.Nacionalidad, PATTERN))
             {
                 result = OperationResult.Failure("La nacionalidad esta en formato invalido");
             }
@@ -160,17 +160,7 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
         /// </summary>
         /// <param name="filtro"></param>
         /// <returns></returns>
-        //public override async Task<OperationResult> ObtenerTodosAsync(Expression<Func<Autor, bool>> filtro)
-        //{
-        //    var existeAutor = await base.ExisteAsyn(a => a.AutorId <= 0).ConfigureAwait(false);
-        //    if (existeAutor)
-        //    {
-        //        result = OperationResult.Failure($"Id de autor no existe");
-        //    }
-        //    result = OperationResult.Success($"Autores: {result.Data}");
-        //    return base.ObtenerTodosAsync();
-        //}
-
+        
         //Aqui irian los contratos de IAutorRepo.
 
     }

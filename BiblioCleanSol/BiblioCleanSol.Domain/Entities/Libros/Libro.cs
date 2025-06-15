@@ -1,9 +1,13 @@
 ﻿using BiblioCleanSol.Domain.Base;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BiblioCleanSol.Domain.Entities.Libros
 {
+    [Table("Libros", Schema = "Core")]
     public sealed class Libro : Auditoria
     {
+        [Key]
         public int LibroId { get; set; }
         public string Titulo { get; set; }
         public string ISBN { get; set; }

@@ -1,7 +1,9 @@
 ﻿using BiblioCleanSol.Domain.Base;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BiblioCleanSol.Domain.Entities.Prestamo
 {
+    [Table("Prestamos", Schema = "Core")]
     public sealed class Prestamo : Auditoria
     {
         public int PrestamoId { get; set; }

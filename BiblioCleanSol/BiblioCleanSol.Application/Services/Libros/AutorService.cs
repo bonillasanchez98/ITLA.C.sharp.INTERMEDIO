@@ -43,23 +43,23 @@ namespace BiblioCleanSol.Application.Services.Libros
                     result = OperationResult.Failure($"Id {autor.AutorId} incorrecto");
                     return result;
                 }
-                if(Regex.IsMatch(autor.Nombre, PATTERN))
+                if(!Regex.IsMatch(autor.Nombre, PATTERN))
                 {
                     result = OperationResult.Failure("Formato de nombre invalido"); //Caso de prueba: EditarAutorAsyncFormatoNombreInvalido
                     return result;
                 }
-                if (Regex.IsMatch(autor.Apellido, PATTERN))
+                if (!Regex.IsMatch(autor.Apellido, PATTERN))
                 {
                     result = OperationResult.Failure("Formato de apellido invalido"); //Caso de prueba: EditarAutorAsyncFormatoApellidoInvalido
                     return result;
                 }
-                if (Regex.IsMatch(autor.Nacionalidad, PATTERN))
+                if (!Regex.IsMatch(autor.Nacionalidad, PATTERN))
                 {
                     result = OperationResult.Failure("Formato de nacionalidad invalido"); //Caso de prueba: EditarAutorAsyncFormatoNacionalidadInvalido
                     return result;
                 }
 
-                await _repo.GuardarAsync(AutorExtention.ToAutorEntityFromAutorDtoEditar(autor));
+                result = await _repo.GuardarAsync(AutorExtention.ToAutorEntityFromAutorDtoEditar(autor));
 
                 return result;
             }

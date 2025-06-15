@@ -6,7 +6,7 @@
     public record CategoriaDto
     {
         public string Nombre { get; set; } = String.Empty;
-        public string Descricao { get; set;} = String.Empty;
+        public string Descripcion { get; set;} = String.Empty;
 
         public bool Habilitado { get; set; }
     }
