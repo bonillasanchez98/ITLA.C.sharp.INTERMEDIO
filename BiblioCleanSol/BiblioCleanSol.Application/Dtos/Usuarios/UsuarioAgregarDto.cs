@@ -1,6 +1,6 @@
-﻿namespace BiblioCleanSol.Application.Dtos.Usuarios.Docente
+﻿namespace BiblioCleanSol.Application.Dtos.Usuarios
 {
-    public record DocenteAgregarDto : DocenteDto
+    public record UsuarioAgregarDto : UsuarioDto
     {
         public DateTime FechaCreacion { get; set; }
         public int UsuarioCreacionId { get; set; }

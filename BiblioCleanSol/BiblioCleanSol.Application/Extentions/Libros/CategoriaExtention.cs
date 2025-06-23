@@ -21,7 +21,7 @@ namespace BiblioCleanSol.Application.Extentions.Libros
                 CategoraId = categoriaEditarDto.CategoriaId,
                 Nombre = categoriaEditarDto.Nombre,
                 Descripcion = categoriaEditarDto.Descripcion,
-                Habilitado = categoriaEditarDto.Habilitado
+                elimino = categoriaEditarDto.Habilitado
             };
         }
 

@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="Dtos\Prestamos\" />
     <Folder Include="Interfaces\Services\Prestamos\" />
-    <Folder Include="Services\Usuarios\" />
     <Folder Include="Services\Prestamos\" />
   </ItemGroup>
 

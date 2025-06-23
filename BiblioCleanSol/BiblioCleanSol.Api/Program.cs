@@ -1,7 +1,11 @@
 
 using BiblioCleanSol.Application.Interfaces.Repositories.Libros;
+using BiblioCleanSol.Application.Interfaces.Repositories.Usuarios;
 using BiblioCleanSol.Application.Interfaces.Services.Libros;
+using BiblioCleanSol.Application.Interfaces.Services.Usuarios;
 using BiblioCleanSol.Application.Services.Libros;
+using BiblioCleanSol.Application.Services.Usuarios;
+using BiblioCleanSol.Persistence.Base;
 using BiblioCleanSol.Persistence.Context;
 using BiblioCleanSol.Persistence.Repositories.Libros;
 using Microsoft.EntityFrameworkCore;
@@ -23,10 +27,12 @@ namespace BiblioCleanSol.Api
             //Repository
             builder.Services.AddScoped<IAutorRepo, AutorRepository>();
             builder.Services.AddScoped<ICategoriaRepo, CategoriaRepository>();
+            builder.Services.AddScoped<IUsuarioRepo, UsuarioRepository>();
 
             //Service
             builder.Services.AddTransient<IAutorService, AutorService>();
             builder.Services.AddTransient<ICategoriaService, CategoriaService>();
+            builder.Services.AddTransient<IUsuarioService, UsuarioService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

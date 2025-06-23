@@ -115,10 +115,10 @@ namespace BiblioCleanSol.Application.Services.Libros
             OperationResult result = new OperationResult();
             try
             {
-                var categoriaResult = await _repo.ObtenerTodosAsync(c => c.Habilitado == true);
+                var categoriaResult = await _repo.ObtenerTodosAsync(c => c.elimino == false);
                 if (categoriaResult.IsSuccess)
                 {
-                    result = OperationResult.Success($"Categorias obtenidas: {result.Data}");
+                    result = OperationResult.Success($"Categorias obtenidas", categoriaResult.Data);
                 }
                 else
                 {

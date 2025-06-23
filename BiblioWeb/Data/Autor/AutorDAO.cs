@@ -42,7 +42,6 @@ namespace BiblioWeb.Data.Autor
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@p_NombreAutor", autor!.Nombre);
                         command.Parameters.AddWithValue("@p_ApellidoAutor", autor.Apellido);
-                        command.Parameters.AddWithValue("@p_FechaNacimiento", autor.FechaNacimiento);
                         command.Parameters.AddWithValue("@p_Nacionalidad", autor.Nacionalidad);
                         command.Parameters.AddWithValue("@p_UsuarioCreacionId", 2);
 
@@ -103,7 +102,6 @@ namespace BiblioWeb.Data.Autor
                                     id_Autor = Convert.ToInt32(reader["id_Autor"]),
                                     Nombre = reader["Nombre"].ToString(),
                                     Apellido = reader["Apellido"].ToString(),
-                                    FechaNacimiento = DateTime.Parse(reader["Fecha_nacimiento"].ToString()),
                                     Nacionalidad = reader["Nacionalidad"].ToString()
                                 });
                             }
@@ -150,7 +148,6 @@ namespace BiblioWeb.Data.Autor
                             autor.id_Autor = Convert.ToInt32(reader["id_Autor"]);
                             autor.Nombre = reader["Nombre"].ToString();
                             autor.Apellido = reader["Apellido"].ToString();
-                            autor.FechaNacimiento = DateTime.Parse(reader["Fecha_nacimiento"].ToString());
                             autor.Nacionalidad = reader["Nacionalidad"].ToString();
 
                             Opresult = OperationResult.Success($"El autor fue encontrado con exito!.", autor);

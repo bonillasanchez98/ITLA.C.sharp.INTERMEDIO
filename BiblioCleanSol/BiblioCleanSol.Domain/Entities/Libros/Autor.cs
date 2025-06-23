@@ -8,9 +8,10 @@ namespace BiblioCleanSol.Domain.Entities.Libros
     public sealed class Autor : Auditoria
     {
         [Key]
+        [Column("id_Autor")]
         public int AutorId { get; set; }
         public string Nombre { get; set; }
-        public string Apellido { get; set; }
+        public string? Apellido { get; set; }
         public string Nacionalidad { get; set; }
     }
 }

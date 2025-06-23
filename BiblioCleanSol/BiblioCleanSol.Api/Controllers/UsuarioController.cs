@@ -1,5 +1,5 @@
-﻿using BiblioCleanSol.Application.Dtos.Libros.Categoria;
-using BiblioCleanSol.Application.Interfaces.Services.Libros;
+﻿using BiblioCleanSol.Application.Dtos.Usuarios;
+using BiblioCleanSol.Application.Interfaces.Services.Usuarios;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -8,20 +8,21 @@ namespace BiblioCleanSol.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriaController : ControllerBase
+    public class UsuarioController : ControllerBase
     {
-        private readonly ICategoriaService _categoriaService;
+        private readonly IUsuarioService _usuarioService;
 
-        public CategoriaController(ICategoriaService categoriaService)
+        public UsuarioController(IUsuarioService usuarioService)
         {
-            _categoriaService = categoriaService;
+            _usuarioService = usuarioService;
         }
 
-        // GET: api/<CategoriaController>
-        [HttpGet("Categorias")]
+
+        // GET: api/<UsuarioController>
+        [HttpGet("Usuarios")]
         public async Task<IActionResult> Get()
         {
-            var result = await _categoriaService.ObtenerCategoriasAsync();
+            var result = await _usuarioService.ObtenerUsuariosAsync();
             if (!result.IsSuccess)
             {
                 return BadRequest(result);
@@ -29,32 +30,32 @@ namespace BiblioCleanSol.Api.Controllers
             return Ok(result);
         }
 
-        // GET api/<CategoriaController>/5
+        // GET api/<UsuarioController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<CategoriaController>
+        // POST api/<UsuarioController>
         [HttpPost("Save")]
-        public async Task<IActionResult> Post([FromBody] CategoriaDto categoriaDto)
+        public async Task<IActionResult> Post([FromBody] UsuarioDto usuarioDto)
         {
-            var result = await _categoriaService.GuardarAutorAsync(categoriaDto);
-            if (!result.IsSuccess)
+            var result = _usuarioService.GuardarUsuarioAsync(usuarioDto);
+            if (!result.IsCompleted)
             {
                 return BadRequest(result);
             }
             return Ok(result);
         }
 
-        // PUT api/<CategoriaController>/5
+        // PUT api/<UsuarioController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<CategoriaController>/5
+        // DELETE api/<UsuarioController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

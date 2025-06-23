@@ -75,10 +75,10 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
 
             result = OperationResult.Success($"El autor fue registrado con exito!", autor);
 
-            _logger.LogInformation($"UsuarioCreacion: {autor.UsuarioCreacionId} |" +
-                $"FechaCreacion: {autor.FechaCreacion = DateTime.Now}");
+            _logger.LogInformation($"UsuarioCreacion: {autor.usuario_creacion_id} |" +
+                $"FechaCreacion: {autor.fecha_creacion = DateTime.Now}");
 
-            autor.Habilitado = true;
+            autor.elimino = false;
             return base.GuardarAsync(autor);
         }
 
@@ -132,8 +132,8 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
 
             result = OperationResult.Success($"Autor editado con exito!", autor);
 
-            _logger.LogInformation($"UsuarioMod: {autor.UsuarioModId} |" +
-                $"Fecha Mod: {autor.FechaMod = DateTime.Now}");
+            _logger.LogInformation($"UsuarioMod: {autor.usuario_mod} |" +
+                $"Fecha Mod: {autor.fecha_mod = DateTime.Now}");
 
             return base.EditarAsync(autor);
         }
@@ -145,12 +145,12 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
         /// <returns></returns>
         public override Task<OperationResult> BorrarAsync(Autor autor)
         {
-            autor.Habilitado = false;
+            autor.elimino = true;
 
             result = OperationResult.Success($"Autor borrado con exito!, ", autor);
 
-            _logger.LogInformation($"UsuarioElim: {autor.UsuarioEliminoId} |" +
-                $"FechaElim: {autor.FechaElimino = DateTime.Now}");
+            _logger.LogInformation($"UsuarioElim: {autor.usuario_elim_id} |" +
+                $"FechaElim: {autor.fecha_elim = DateTime.Now}");
 
             return base.BorrarAsync(autor);
         }

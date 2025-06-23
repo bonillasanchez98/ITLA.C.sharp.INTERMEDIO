@@ -82,10 +82,10 @@ namespace BiblioCleanSol.Persistence.Base
                     result = OperationResult.Failure("Id invalido");
                 }
 
-            _logger.LogInformation($"UsuarioCreacion: {usuario.UsuarioCreacionId} |" +
-                $"FechaCreacion: {usuario.FechaCreacion = DateTime.Now}");
+            _logger.LogInformation($"UsuarioCreacion: {usuario.usuario_creacion_id} |" +
+                $"FechaCreacion: {usuario.fecha_creacion = DateTime.Now}");
 
-            usuario.Habilitado = true;
+            usuario.elimino = false;
 
             return base.GuardarAsync(usuario);
         }
@@ -155,8 +155,8 @@ namespace BiblioCleanSol.Persistence.Base
                 result = OperationResult.Failure("Id invalido");
             }
 
-            _logger.LogInformation($"UsuarioMod: {usuario.UsuarioModId} |" +
-                $"FechaMod: {usuario.FechaMod = DateTime.Now}");
+            _logger.LogInformation($"UsuarioMod: {usuario.usuario_mod} |" +
+                $"FechaMod: {usuario.fecha_mod = DateTime.Now}");
 
             return base.EditarAsync(usuario);
         }
@@ -165,12 +165,12 @@ namespace BiblioCleanSol.Persistence.Base
         {
             OperationResult result = new OperationResult();
 
-            usuario.Habilitado = false;
+            usuario.elimino = true;
 
             result = OperationResult.Success($"Usuario borrado con exito!, ", usuario);
 
-            _logger.LogInformation($"UsuarioElim: {usuario.UsuarioEliminoId} |" +
-                $"FechaElim: {usuario.FechaElimino = DateTime.Now}");
+            _logger.LogInformation($"UsuarioElim: {usuario.usuario_elim_id} |" +
+                $"FechaElim: {usuario.fecha_elim = DateTime.Now}");
 
             return base.BorrarAsync(usuario);
         }

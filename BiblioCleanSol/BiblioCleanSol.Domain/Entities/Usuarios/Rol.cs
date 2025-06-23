@@ -8,7 +8,10 @@ namespace BiblioCleanSol.Domain.Entities.Seguridad
     public sealed class Rol : Auditoria
     {
         [Key]
-        public int RolId { get; set; }
+        [Column("id_Rol")]
+        public byte RolId { get; set; }
+        
+        [Column("Nombre")]
         public string Nombre { get; set; }
     }
 }

@@ -18,11 +18,13 @@
             Data = data;
         }
 
+        //Metodo Success
         public static OperationResult Success(string message, dynamic? data = null)
         {
             return new OperationResult(true, message, data);
         }
 
+        //Metodo Failure
         public static OperationResult Failure(string message)
         {
             return new OperationResult(false, message);

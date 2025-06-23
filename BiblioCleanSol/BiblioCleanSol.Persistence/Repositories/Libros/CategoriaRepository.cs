@@ -55,10 +55,10 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
                 result = OperationResult.Failure("El formato no es valido");
             }
             
-            categoria.Habilitado = true;
+            categoria.elimino = false;
 
-            _logger.LogInformation($"UsuarioCreacion: {categoria.UsuarioCreacionId} |" +
-                $"FechaCreacion: {categoria.FechaCreacion = DateTime.Now}");
+            _logger.LogInformation($"UsuarioCreacion: {categoria.usuario_creacion_id} |" +
+                $"FechaCreacion: {categoria.fecha_creacion = DateTime.Now}");
 
             return base.GuardarAsync(categoria);
         }
@@ -97,18 +97,18 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
                 result = OperationResult.Failure("El formato no es valido");
             }
 
-            _logger.LogInformation($"UsuarioMod: {categoria.UsuarioModId} |" +
-                $"FechaMod: {categoria.FechaMod = DateTime.Now}");
+            _logger.LogInformation($"UsuarioMod: {categoria.usuario_mod} |" +
+                $"FechaMod: {categoria.fecha_mod = DateTime.Now}");
 
             return base.EditarAsync(categoria);
         }
 
         public override Task<OperationResult> BorrarAsync(Categoria categoria)
         {
-            categoria.Habilitado = false;
+            categoria.elimino = true;
 
-            _logger.LogInformation($"UsuarioElimino: {categoria.UsuarioEliminoId} |" +
-                $"FechaElimino: {categoria.FechaElimino = DateTime.Now}");
+            _logger.LogInformation($"UsuarioElimino: {categoria.usuario_elim_id} |" +
+                $"FechaElimino: {categoria.fecha_elim = DateTime.Now}");
 
             return base.BorrarAsync(categoria);
         }

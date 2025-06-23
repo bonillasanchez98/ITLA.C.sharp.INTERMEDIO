@@ -1,13 +1,21 @@
-﻿namespace BiblioCleanSol.Domain.Base
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace BiblioCleanSol.Domain.Base
 {
     public abstract class Auditoria
     {
-        public DateTime FechaCreacion { get; set; }
-        public int UsuarioCreacionId { get; set; }
-        public DateTime FechaMod { get; set; }
-        public int UsuarioModId { get; set; }
-        public DateTime FechaElimino { get; set; }
-        public int UsuarioEliminoId { get; set; }
-        public bool Habilitado { get; set; }
+        public DateTime? fecha_creacion { get; set; }
+
+        public int? usuario_creacion_id { get; set; }
+
+        public DateTime? fecha_mod { get; set; }
+
+        public int? usuario_mod { get; set; }
+        
+        public DateTime? fecha_elim { get; set; }
+
+        public int? usuario_elim_id { get; set; }
+
+        public bool elimino { get; set; }
     }
 }

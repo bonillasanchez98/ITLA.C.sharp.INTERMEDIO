@@ -42,6 +42,7 @@ namespace BiblioWeb.Data.Libro
                         command.Parameters.AddWithValue("@p_AutorId", libro.Autor_id);
                         command.Parameters.AddWithValue("@p_ISBN", libro.ISBN);
                         command.Parameters.AddWithValue("@p_fechaPublicacion", libro.FechaPublicacion);
+                        command.Parameters.AddWithValue("@p_CantEjemplar", libro.CantidadEjemplares);
                         command.Parameters.AddWithValue("@p_CategoriaId", libro.Categoria_id);
                         command.Parameters.AddWithValue("@p_UsuarioCreacionId", 2);
 

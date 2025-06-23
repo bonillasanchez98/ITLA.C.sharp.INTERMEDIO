@@ -8,8 +8,9 @@ namespace BiblioCleanSol.Domain.Entities.Libros
     public sealed class Categoria : Auditoria
     {
         [Key]
+        [Column("id_Categoria")]
         public int CategoraId { get; set; }
         public string Nombre { get; set; }
-        public string Descripcion { get; set; }
+        public string? Descripcion { get; set; }
     }
 }

@@ -105,16 +105,16 @@ namespace BiblioCleanSol.Application.Services.Libros
             OperationResult result = new OperationResult();
             try
             {
-                var autoresResult = await _repo.ObtenerTodosAsync(a => a.Habilitado == true);
+                var autoresResult = await _repo.ObtenerTodosAsync(a => a.elimino == false);
                 if (autoresResult.IsSuccess)
                 {
-                    result = OperationResult.Success($"Autores obtenidos: {result.Data}");
+                    result = OperationResult.Success($"Autores obtenidos", autoresResult.Data);
+                    _logger.LogInformation("Obtencion de autores exitosa!");
                 }
                 else
                 {
                     result = OperationResult.Failure("Fallo al intentar obtener a los autores");
                 }
-                _logger.LogInformation("Obtencion de autores exitosa!");
                 
             }
             catch (Exception ex)
@@ -122,7 +122,7 @@ namespace BiblioCleanSol.Application.Services.Libros
                 _logger.LogError(ex, "Ha ocurrido un error obteniendo los autores");
                 result = OperationResult.Failure("Ha ocurrido un error obteniendo los autores");
             }
-            return result ;
+            return result;
         }
     }
 }
