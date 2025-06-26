@@ -3,6 +3,7 @@ using BiblioCleanSol.Application.Extentions.Libros;
 using BiblioCleanSol.Application.Interfaces.Repositories.Libros;
 using BiblioCleanSol.Application.Interfaces.Services.Libros;
 using BiblioCleanSol.Domain.Base;
+using BiblioCleanSol.Domain.Base.utils;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 
@@ -22,7 +23,7 @@ namespace BiblioCleanSol.Application.Services.Libros
         public async Task<OperationResult> EditarAutorAsync(CategoriaEditarDto categoriaEditarDto)
         {
             OperationResult result = new OperationResult();
-            string PATTERN = @"^[a-zA-Z]+";
+            
             try
             {
                 _logger.LogInformation($"Editando categoria {categoriaEditarDto.Nombre}");
@@ -32,7 +33,8 @@ namespace BiblioCleanSol.Application.Services.Libros
                     result = OperationResult.Failure("La categoria no puede ser nulo");
                     return result;
                 }
-                if(await _repo.ExisteAsyn(c => c.Nombre == categoriaEditarDto.Nombre))
+                var existe = await _repo.ExisteAsyn(c => c.Nombre == categoriaEditarDto.Nombre);
+                if (existe != null)
                 {
                     result = OperationResult.Failure($"Ya existe una categoria {categoriaEditarDto.Nombre}");
                     return result;
@@ -42,12 +44,12 @@ namespace BiblioCleanSol.Application.Services.Libros
                     result = OperationResult.Failure($"Id {categoriaEditarDto.CategoriaId} incorrecto");
                     return result;
                 }
-                if(!Regex.IsMatch(categoriaEditarDto.Nombre, PATTERN))
+                if(!Regex.IsMatch(categoriaEditarDto.Nombre, ExpresionesReg.STRING_PATTERN))
                 {
                     result = OperationResult.Failure("Formato de nombre invalido");
                     return result;
                 }
-                if (!Regex.IsMatch(categoriaEditarDto.Descripcion, PATTERN))
+                if (!Regex.IsMatch(categoriaEditarDto.Descripcion, ExpresionesReg.STRING_PATTERN))
                 {
                     result = OperationResult.Failure("Formato de descripcion invalido");
                     return result;
@@ -70,7 +72,7 @@ namespace BiblioCleanSol.Application.Services.Libros
         public async Task<OperationResult> GuardarAutorAsync(CategoriaDto categoriaDto)
         {
             OperationResult result = new OperationResult();
-            string PATTERN = @"^[a-zA-Z]+";
+            
             try
             {
                 _logger.LogInformation($"Guardando categoria {categoriaDto.Nombre}");
@@ -80,25 +82,24 @@ namespace BiblioCleanSol.Application.Services.Libros
                     result = OperationResult.Failure("La categoria no puede ser nulo");
                     return result;
                 }
-                if (await _repo.ExisteAsyn(c => c.Nombre == categoriaDto.Nombre))
+                var existe = await _repo.ExisteAsyn(c => c.Nombre == categoriaDto.Nombre);
+                if (existe != null)
                 {
                     result = OperationResult.Failure($"Ya existe una categoria {categoriaDto.Nombre}");
                     return result;
                 }
-                if (!Regex.IsMatch(categoriaDto.Nombre, PATTERN))
+                if (Regex.IsMatch(categoriaDto.Nombre, ExpresionesReg.STRING_PATTERN))
                 {
                     result = OperationResult.Failure("Formato de nombre invalido");
                     return result;
                 }
-                if (!Regex.IsMatch(categoriaDto.Descripcion, PATTERN))
+                if (Regex.IsMatch(categoriaDto.Descripcion, ExpresionesReg.STRING_PATTERN))
                 {
                     result = OperationResult.Failure("Formato de descripcion invalido");
                     return result;
                 }
 
-                await _repo.EditarAsync(CategoriaExtention.ToCategoriaEntityFromCategoriaDtoAgregar(categoriaDto));
-
-                return result;
+                return await _repo.GuardarAsync(CategoriaExtention.ToCategoriaEntityFromCategoriaDtoAgregar(categoriaDto));
 
             }
             catch (Exception ex)

@@ -1,5 +1,6 @@
 ﻿using BiblioCleanSol.Application.Interfaces.Repositories.Libros;
 using BiblioCleanSol.Domain.Base;
+using BiblioCleanSol.Domain.Base.utils;
 using BiblioCleanSol.Domain.Entities.Libros;
 using BiblioCleanSol.Persistence.Base;
 using BiblioCleanSol.Persistence.Context;
@@ -12,7 +13,6 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
     public sealed class CategoriaRepository : BaseRepository<Categoria>, ICategoriaRepo
     {
         private readonly ILogger<Categoria> _logger;
-        private readonly string PATTERN = "@^[a-zA-Z]+";
 
         public CategoriaRepository(Biblio_dbContext dbContext, ILogger<Categoria> logger) : base(dbContext)
         {
@@ -37,7 +37,7 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
             {
                 result = OperationResult.Failure("El nombre de la categoria no puede exceder los 50 caracteres");
             }
-            if(!Regex.IsMatch(categoria.Nombre, PATTERN))
+            if(!Regex.IsMatch(categoria.Nombre, ExpresionesReg.STRING_PATTERN))
             {
                 result = OperationResult.Failure("El formato no es valido");
             }
@@ -50,15 +50,20 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
             {
                 result = OperationResult.Failure("La descripcion de la categoria no puede exceder los 150 caracteres");
             }
-            if(!Regex.IsMatch(categoria.Descripcion, PATTERN))
+            if(!Regex.IsMatch(categoria.Descripcion, ExpresionesReg.STRING_PATTERN))
             {
                 result = OperationResult.Failure("El formato no es valido");
             }
             
             categoria.elimino = false;
+            categoria.usuario_creacion_id = 2;
+            categoria.fecha_creacion = DateTime.Now;
+            
+            categoria.fecha_mod = null;
+            categoria.usuario_mod = null;
 
-            _logger.LogInformation($"UsuarioCreacion: {categoria.usuario_creacion_id} |" +
-                $"FechaCreacion: {categoria.fecha_creacion = DateTime.Now}");
+            categoria.usuario_elim_id = null;
+            categoria.fecha_elim = null;
 
             return base.GuardarAsync(categoria);
         }
@@ -79,7 +84,7 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
             {
                 result = OperationResult.Failure("El nombre de la categoria no puede exceder los 50 caracteres");
             }
-            if (!Regex.IsMatch(categoria.Nombre, PATTERN))
+            if (Regex.IsMatch(categoria.Nombre, ExpresionesReg.STRING_PATTERN))
             {
                 result = OperationResult.Failure("El formato no es valido");
             }
@@ -92,13 +97,13 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
             {
                 result = OperationResult.Failure("La descripcion de la categoria no puede exceder los 150 caracteres");
             }
-            if (!Regex.IsMatch(categoria.Descripcion, PATTERN))
+            if (Regex.IsMatch(categoria.Descripcion, ExpresionesReg.STRING_PATTERN))
             {
                 result = OperationResult.Failure("El formato no es valido");
             }
 
-            _logger.LogInformation($"UsuarioMod: {categoria.usuario_mod} |" +
-                $"FechaMod: {categoria.fecha_mod = DateTime.Now}");
+            categoria.fecha_mod = DateTime.Now;
+            categoria.usuario_mod = 2;
 
             return base.EditarAsync(categoria);
         }
@@ -107,8 +112,8 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
         {
             categoria.elimino = true;
 
-            _logger.LogInformation($"UsuarioElimino: {categoria.usuario_elim_id} |" +
-                $"FechaElimino: {categoria.fecha_elim = DateTime.Now}");
+            categoria.usuario_elim_id = 2;
+            categoria.fecha_elim = DateTime.Now;
 
             return base.BorrarAsync(categoria);
         }

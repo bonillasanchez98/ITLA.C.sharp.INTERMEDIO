@@ -1,5 +1,6 @@
 ﻿using BiblioCleanSol.Application.Interfaces.Repositories.Usuarios;
 using BiblioCleanSol.Domain.Base;
+using BiblioCleanSol.Domain.Base.utils;
 using BiblioCleanSol.Persistence.Context;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
@@ -9,8 +10,6 @@ namespace BiblioCleanSol.Persistence.Base
     public sealed class UsuarioRepository : BaseRepository<Usuario>, IUsuarioRepo
     {
         private readonly ILogger<Usuario> _logger;
-        private readonly string STRING_PATTERN = @"^[a-zA-Z]+";
-        private readonly string EMAIL_PATTERN = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
 
         public UsuarioRepository(Biblio_dbContext dbContext, ILogger<Usuario> logger) : base(dbContext)
         {
@@ -33,7 +32,7 @@ namespace BiblioCleanSol.Persistence.Base
                 {
                     result = OperationResult.Failure("El nombre de usuario no puede exceder los 50 caracteres");
                 }
-                if(!Regex.IsMatch(usuario.Nombre, STRING_PATTERN))
+                if(Regex.IsMatch(usuario.Nombre, ExpresionesReg.STRING_PATTERN))
                 {
                     result = OperationResult.Failure("El nombre debe ser en un formato valido");
                 }
@@ -46,12 +45,12 @@ namespace BiblioCleanSol.Persistence.Base
                 {
                     result = OperationResult.Failure("El apellido de usuario no puede exceder los 50 caracteres");
                 }
-                if (!Regex.IsMatch(usuario.Apellido, STRING_PATTERN))
+                if (Regex.IsMatch(usuario.Apellido, ExpresionesReg.STRING_PATTERN))
                 {
                     result = OperationResult.Failure("El apellido debe ser en un formato valido");
                 }
 
-                if(String.IsNullOrWhiteSpace(usuario.Correo) || String.IsNullOrEmpty(usuario.Correo))
+                if(String.IsNullOrWhiteSpace(usuario.Correo))
                 {
                     result = OperationResult.Failure("El correo no puede nulo o vacio");
                 }
@@ -59,12 +58,9 @@ namespace BiblioCleanSol.Persistence.Base
                 {
                     result = OperationResult.Failure("El correo no puede exceder los 50 caracteres");
                 }
-                if(!Regex.IsMatch(usuario.Correo, EMAIL_PATTERN))
-                {
-                    result = OperationResult.Failure("El correo debe ser en un formato valido");
-                }
+                
 
-                if(String.IsNullOrWhiteSpace(usuario.Clave) || String.IsNullOrEmpty(usuario.Clave))
+                if(String.IsNullOrWhiteSpace(usuario.Clave))
                 {
                     result = OperationResult.Failure("La clave no puede ser nulo o vacio");
                 }
@@ -81,11 +77,16 @@ namespace BiblioCleanSol.Persistence.Base
                 {
                     result = OperationResult.Failure("Id invalido");
                 }
-
-            _logger.LogInformation($"UsuarioCreacion: {usuario.usuario_creacion_id} |" +
-                $"FechaCreacion: {usuario.fecha_creacion = DateTime.Now}");
-
             usuario.elimino = false;
+
+            usuario.usuario_creacion_id = 2;
+            usuario.fecha_creacion = DateTime.Now;
+
+            usuario.usuario_mod = null;
+            usuario.fecha_mod= null;
+
+            usuario.usuario_elim_id = null;
+            usuario.fecha_elim = null;
 
             return base.GuardarAsync(usuario);
         }
@@ -106,7 +107,7 @@ namespace BiblioCleanSol.Persistence.Base
             {
                 result = OperationResult.Failure("El nombre de usuario no puede exceder los 50 caracteres");
             }
-            if (!Regex.IsMatch(usuario.Nombre, STRING_PATTERN))
+            if (Regex.IsMatch(usuario.Nombre, ExpresionesReg.STRING_PATTERN))
             {
                 result = OperationResult.Failure("El nombre debe ser en un formato valido");
             }
@@ -119,12 +120,12 @@ namespace BiblioCleanSol.Persistence.Base
             {
                 result = OperationResult.Failure("El apellido de usuario no puede exceder los 50 caracteres");
             }
-            if (!Regex.IsMatch(usuario.Apellido, STRING_PATTERN))
+            if (Regex.IsMatch(usuario.Apellido, ExpresionesReg.STRING_PATTERN))
             {
                 result = OperationResult.Failure("El apellido debe ser en un formato valido");
             }
 
-            if (String.IsNullOrWhiteSpace(usuario.Correo) || String.IsNullOrEmpty(usuario.Correo))
+            if (String.IsNullOrWhiteSpace(usuario.Correo))
             {
                 result = OperationResult.Failure("El correo no puede nulo o vacio");
             }
@@ -132,12 +133,12 @@ namespace BiblioCleanSol.Persistence.Base
             {
                 result = OperationResult.Failure("El correo no puede exceder los 50 caracteres");
             }
-            if (!Regex.IsMatch(usuario.Correo, EMAIL_PATTERN))
+            if (Regex.IsMatch(usuario.Correo, ExpresionesReg.STRING_PATTERN))
             {
                 result = OperationResult.Failure("El correo debe ser en un formato valido");
             }
 
-            if (String.IsNullOrWhiteSpace(usuario.Clave) || String.IsNullOrEmpty(usuario.Clave))
+            if (String.IsNullOrWhiteSpace(usuario.Clave))
             {
                 result = OperationResult.Failure("La clave no puede ser nulo o vacio");
             }
@@ -155,8 +156,8 @@ namespace BiblioCleanSol.Persistence.Base
                 result = OperationResult.Failure("Id invalido");
             }
 
-            _logger.LogInformation($"UsuarioMod: {usuario.usuario_mod} |" +
-                $"FechaMod: {usuario.fecha_mod = DateTime.Now}");
+            usuario.usuario_mod = 2;
+            usuario.fecha_mod = DateTime.Now;
 
             return base.EditarAsync(usuario);
         }
@@ -167,15 +168,14 @@ namespace BiblioCleanSol.Persistence.Base
 
             usuario.elimino = true;
 
-            result = OperationResult.Success($"Usuario borrado con exito!, ", usuario);
+            usuario.usuario_elim_id = 2;
+            usuario.fecha_elim = DateTime.Now;
 
-            _logger.LogInformation($"UsuarioElim: {usuario.usuario_elim_id} |" +
-                $"FechaElim: {usuario.fecha_elim = DateTime.Now}");
+            result = OperationResult.Success($"Usuario borrado con exito!, ", usuario);
 
             return base.BorrarAsync(usuario);
         }
 
-        
         public Task<OperationResult> ObtenerUsuarioPorRolId(int RolId)
         {
             OperationResult result = new OperationResult();

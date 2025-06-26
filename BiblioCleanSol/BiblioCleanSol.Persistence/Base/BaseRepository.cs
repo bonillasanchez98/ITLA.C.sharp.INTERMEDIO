@@ -71,9 +71,13 @@ namespace BiblioCleanSol.Persistence.Base
         /// </summary>
         /// <param name="filtro"></param>
         /// <returns></returns>
-        public async Task<bool> ExisteAsyn(Expression<Func<TEntity, bool>> filtro)
+        public virtual async Task<OperationResult> ExisteAsyn(Expression<Func<TEntity, bool>> filtro)
         {
-            return await _dbSet.AnyAsync(filtro);
+            OperationResult opResult = new OperationResult();
+            var exsite = await _dbSet.AsNoTracking()
+                            .FirstOrDefaultAsync( filtro );
+
+            return opResult = OperationResult.Success($"{typeof(TEntity)} existe", exsite);
         }
 
         /// <summary>

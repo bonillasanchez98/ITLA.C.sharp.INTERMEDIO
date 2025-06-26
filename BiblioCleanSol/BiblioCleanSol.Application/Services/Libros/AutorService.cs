@@ -3,6 +3,7 @@ using BiblioCleanSol.Application.Extentions.Libros;
 using BiblioCleanSol.Application.Interfaces.Repositories.Libros;
 using BiblioCleanSol.Application.Interfaces.Services.Libros;
 using BiblioCleanSol.Domain.Base;
+using BiblioCleanSol.Domain.Base.utils;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 
@@ -22,7 +23,6 @@ namespace BiblioCleanSol.Application.Services.Libros
         public async Task<OperationResult> EditarAutorAsync(AutorEditarDto autor)
         {
             OperationResult result = new OperationResult();
-            string PATTERN = @"^[a-zA-Z]+";
             try
             {
                 //Por cada validacion que se haga se debe de crear un caso de prueba (Prueba Unitaria)
@@ -33,7 +33,8 @@ namespace BiblioCleanSol.Application.Services.Libros
                     result = OperationResult.Failure("Autor no puede ser nulo");
                     return result;
                 }
-                if (await _repo.ExisteAsyn(a => a.Nombre == autor.Nombre)) //Caso de prueba: EditarAutorAsyncNombreExiste
+                var existe = await _repo.ExisteAsyn(a => a.Nombre == autor.Nombre);
+                if (existe != null) //Caso de prueba: EditarAutorAsyncNombreExiste
                 {
                     result = OperationResult.Failure($"Ya existe un autor de nombre: {autor.Nombre}");
                     return result;
@@ -43,17 +44,17 @@ namespace BiblioCleanSol.Application.Services.Libros
                     result = OperationResult.Failure($"Id {autor.AutorId} incorrecto");
                     return result;
                 }
-                if(!Regex.IsMatch(autor.Nombre, PATTERN))
+                if(!Regex.IsMatch(autor.Nombre, ExpresionesReg.STRING_PATTERN))
                 {
                     result = OperationResult.Failure("Formato de nombre invalido"); //Caso de prueba: EditarAutorAsyncFormatoNombreInvalido
                     return result;
                 }
-                if (!Regex.IsMatch(autor.Apellido, PATTERN))
+                if (!Regex.IsMatch(autor.Apellido, ExpresionesReg.STRING_PATTERN))
                 {
                     result = OperationResult.Failure("Formato de apellido invalido"); //Caso de prueba: EditarAutorAsyncFormatoApellidoInvalido
                     return result;
                 }
-                if (!Regex.IsMatch(autor.Nacionalidad, PATTERN))
+                if (!Regex.IsMatch(autor.Nacionalidad, ExpresionesReg.STRING_PATTERN))
                 {
                     result = OperationResult.Failure("Formato de nacionalidad invalido"); //Caso de prueba: EditarAutorAsyncFormatoNacionalidadInvalido
                     return result;
@@ -66,6 +67,7 @@ namespace BiblioCleanSol.Application.Services.Libros
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Ha ocurrido un error intentando guardar un autor");
+                result = OperationResult.Failure("Ha ocurrido un error intentando guardar un autor");
             }
             return result;
         }
@@ -83,7 +85,8 @@ namespace BiblioCleanSol.Application.Services.Libros
                     result = OperationResult.Failure("Autor es nulo");
                     return result;
                 }
-                if (await _repo.ExisteAsyn(a => a.Nombre == autor.Nombre)) //Caso de prueba: GuardarAutorAsyncExisteNombre
+                var existe = await _repo.ExisteAsyn(a => a.Nombre == autor.Nombre);
+                if (existe != null) //Caso de prueba: GuardarAutorAsyncExisteNombre
                 {
                     result = OperationResult.Failure($"Ya existe un autor de nombre: {autor.Nombre}");
                     return result;
@@ -96,6 +99,7 @@ namespace BiblioCleanSol.Application.Services.Libros
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Ha ocurrido un error intentando guardar un autor");
+                result = OperationResult.Failure("Ha ocurrido un error intentando guardar un autor");
             }
             return result;
         }

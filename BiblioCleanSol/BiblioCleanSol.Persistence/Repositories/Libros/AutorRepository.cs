@@ -1,6 +1,7 @@
 ﻿
 using BiblioCleanSol.Application.Interfaces.Repositories.Libros;
 using BiblioCleanSol.Domain.Base;
+using BiblioCleanSol.Domain.Base.utils;
 using BiblioCleanSol.Domain.Entities.Libros;
 using BiblioCleanSol.Persistence.Base;
 using BiblioCleanSol.Persistence.Context;
@@ -14,8 +15,7 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
     public sealed class AutorRepository : BaseRepository<Autor>, IAutorRepo
     {
         private readonly ILogger<Autor> _logger;
-        private readonly string PATTERN = @"^[a-zA-Z]+";
-
+        
         private OperationResult result = new OperationResult();
 
         public AutorRepository(Biblio_dbContext dbContext, ILogger<Autor> logger) : base(dbContext)
@@ -44,7 +44,7 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
             {
                 result = OperationResult.Failure("El nombre del autor no puede ser nulo");
             }
-            if(!Regex.IsMatch(autor.Nombre, PATTERN))
+            if(!Regex.IsMatch(autor.Nombre, ExpresionesReg.STRING_PATTERN))
             {
                 result = OperationResult.Failure("El nombre esta en formato invalido");
             }
@@ -58,7 +58,7 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
             {
                 result = OperationResult.Failure("El apellido del autor no puede ser nulo");
             }
-            if(!Regex.IsMatch(autor.Apellido, PATTERN))
+            if(Regex.IsMatch(autor.Apellido, ExpresionesReg.STRING_PATTERN))
             {
                 result = OperationResult.Failure("El apellido del autor debe ser de un formato valido");
             }
@@ -68,17 +68,24 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
             {
                 result = OperationResult.Failure("La nacionalidad del autor no puede ser nula");
             }
-            if(!Regex.IsMatch(autor.Nacionalidad, PATTERN))
+            if(Regex.IsMatch(autor.Nacionalidad, ExpresionesReg.STRING_PATTERN))
             {
                 result = OperationResult.Failure("La nacionalidad esta en formato invalido");
             }
 
             result = OperationResult.Success($"El autor fue registrado con exito!", autor);
 
-            _logger.LogInformation($"UsuarioCreacion: {autor.usuario_creacion_id} |" +
-                $"FechaCreacion: {autor.fecha_creacion = DateTime.Now}");
-
             autor.elimino = false;
+
+            autor.usuario_creacion_id = 2;
+            autor.fecha_creacion = DateTime.Now;
+
+            autor.usuario_mod = null;
+            autor.fecha_mod = null;
+
+            autor.usuario_elim_id = null;
+            autor.fecha_elim = null;
+
             return base.GuardarAsync(autor);
         }
 
@@ -101,7 +108,7 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
             {
                 result = OperationResult.Failure("El nombre del autor no puede ser nulo");
             }
-            if (!Regex.IsMatch(autor.Nombre, PATTERN))
+            if (Regex.IsMatch(autor.Nombre, ExpresionesReg.STRING_PATTERN))
             {
                 result = OperationResult.Failure("El nombre esta en formato invalido");
             }
@@ -115,7 +122,7 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
             {
                 result = OperationResult.Failure("El apellido del autor no puede ser nulo");
             }
-            if (!Regex.IsMatch(autor.Apellido, PATTERN))
+            if (Regex.IsMatch(autor.Apellido, ExpresionesReg.STRING_PATTERN))
             {
                 result = OperationResult.Failure("El apellido del autor debe ser de un formato valido");
             }
@@ -125,15 +132,15 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
             {
                 result = OperationResult.Failure("La nacionalidad del autor no puede ser nula");
             }
-            if (!Regex.IsMatch(autor.Nacionalidad, PATTERN))
+            if (Regex.IsMatch(autor.Nacionalidad, ExpresionesReg.STRING_PATTERN))
             {
                 result = OperationResult.Failure("La nacionalidad esta en formato invalido");
             }
 
             result = OperationResult.Success($"Autor editado con exito!", autor);
 
-            _logger.LogInformation($"UsuarioMod: {autor.usuario_mod} |" +
-                $"Fecha Mod: {autor.fecha_mod = DateTime.Now}");
+            autor.usuario_mod = 2;
+            autor.fecha_mod = DateTime.Now;
 
             return base.EditarAsync(autor);
         }
@@ -147,10 +154,10 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
         {
             autor.elimino = true;
 
-            result = OperationResult.Success($"Autor borrado con exito!, ", autor);
+            autor.usuario_elim_id = 2;
+            autor.fecha_elim = DateTime.Now;
 
-            _logger.LogInformation($"UsuarioElim: {autor.usuario_elim_id} |" +
-                $"FechaElim: {autor.fecha_elim = DateTime.Now}");
+            result = OperationResult.Success($"Autor borrado con exito! ", autor);
 
             return base.BorrarAsync(autor);
         }

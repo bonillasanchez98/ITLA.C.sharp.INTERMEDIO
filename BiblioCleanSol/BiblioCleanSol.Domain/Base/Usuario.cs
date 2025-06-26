@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace BiblioCleanSol.Domain.Base
 {
     [Table("Usuarios", Schema = "Seguridad")]
-    public class Usuario : Auditoria
+    public sealed class Usuario : Auditoria
     {
         [Key]
         [Column("id_Usuario")]

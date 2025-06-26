@@ -3,6 +3,7 @@ using BiblioCleanSol.Application.Extentions.Usuarios;
 using BiblioCleanSol.Application.Interfaces.Repositories.Usuarios;
 using BiblioCleanSol.Application.Interfaces.Services.Usuarios;
 using BiblioCleanSol.Domain.Base;
+using BiblioCleanSol.Domain.Base.utils;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
 
@@ -12,9 +13,7 @@ namespace BiblioCleanSol.Application.Services.Usuarios
     {
         private readonly IUsuarioRepo _repo;
         private readonly ILogger<Usuario> _logger;
-        private readonly string STRING_PATTERN = @"^[a-zA-Z]+";
-        private readonly string EMAIL_PATTERN = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-
+        
         public UsuarioService(IUsuarioRepo repo, ILogger<Usuario> logger)
         {
             _repo = repo;
@@ -33,26 +32,29 @@ namespace BiblioCleanSol.Application.Services.Usuarios
                     result = OperationResult.Failure("El usuario no puede ser nulo");
                     return result;
                 }
-                if (!Regex.IsMatch(usuarioDto.Nombre, STRING_PATTERN))
+                if (Regex.IsMatch(usuarioDto.Nombre, ExpresionesReg.STRING_PATTERN))
                 {
                     result = OperationResult.Failure("Formato de nombre invalido");
                     return result;
                 }
-                if (!Regex.IsMatch(usuarioDto.Apellido, STRING_PATTERN))
+                if (Regex.IsMatch(usuarioDto.Apellido, ExpresionesReg.STRING_PATTERN))
                 {
                     result = OperationResult.Failure("Formato de apellido invalido");
                     return result;
                 }
-                if(!Regex.IsMatch(usuarioDto.Correo, EMAIL_PATTERN))
+                if(Regex.IsMatch(usuarioDto.Correo, ExpresionesReg.STRING_PATTERN))
                 {
                     result = OperationResult.Failure("Formato de correo invalido");
                     return result;
                 }
-                if (await _repo.ExisteAsyn(c => c.Correo == usuarioDto.Correo))
+
+                var existe = await _repo.ExisteAsyn(c => c.Correo == usuarioDto.Correo);
+                if (existe != null)
                 {
-                    result = OperationResult.Failure($"Ya existe un correo {usuarioDto.Correo}");
+                    result = OperationResult.Failure($"Correo {usuarioDto.Correo} ya existe");
                     return result;
                 }
+
                 if (String.IsNullOrEmpty(usuarioDto.Correo))
                 {
                     result = OperationResult.Failure("El correo no debe ser nulo");
@@ -94,24 +96,25 @@ namespace BiblioCleanSol.Application.Services.Usuarios
                     result = OperationResult.Failure("El usuario no puede ser nulo");
                     return result;
                 }
-                if (!Regex.IsMatch(usuarioEditarDto.Nombre, STRING_PATTERN))
+                if (Regex.IsMatch(usuarioEditarDto.Nombre, ExpresionesReg.STRING_PATTERN))
                 {
                     result = OperationResult.Failure("Formato de nombre invalido");
                     return result;
                 }
-                if (!Regex.IsMatch(usuarioEditarDto.Apellido, STRING_PATTERN))
+                if (Regex.IsMatch(usuarioEditarDto.Apellido, ExpresionesReg.STRING_PATTERN))
                 {
                     result = OperationResult.Failure("Formato de apellido invalido");
                     return result;
                 }
-                if (!Regex.IsMatch(usuarioEditarDto.Correo, EMAIL_PATTERN))
+                if (Regex.IsMatch(usuarioEditarDto.Correo, ExpresionesReg.STRING_PATTERN))
                 {
                     result = OperationResult.Failure("Formato de correo invalido");
                     return result;
                 }
-                if (await _repo.ExisteAsyn(c => c.Correo == usuarioEditarDto.Correo))
+                var existe = await _repo.ExisteAsyn(c => c.Correo == usuarioEditarDto.Correo);
+                if (existe != null)
                 {
-                    result = OperationResult.Failure($"Ya existe un correo {usuarioEditarDto.Correo}");
+                    result = OperationResult.Failure($"Correo {usuarioEditarDto.Correo} ya existe");
                     return result;
                 }
                 if (String.IsNullOrEmpty(usuarioEditarDto.Correo))

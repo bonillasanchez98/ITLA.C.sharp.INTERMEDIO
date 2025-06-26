@@ -49,6 +49,6 @@ namespace BiblioCleanSol.Application.Interfaces.Repositories
         /// </summary>
         /// <param name="filtro"></param>
         /// <returns></returns>
-        Task<bool> ExisteAsyn(Expression<Func<TEntity, bool>> filtro);
+        Task<OperationResult> ExisteAsyn(Expression<Func<TEntity, bool>> filtro);
     }
 }

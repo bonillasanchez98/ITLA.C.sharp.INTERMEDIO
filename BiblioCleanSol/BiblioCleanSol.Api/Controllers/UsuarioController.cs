@@ -41,8 +41,8 @@ namespace BiblioCleanSol.Api.Controllers
         [HttpPost("Save")]
         public async Task<IActionResult> Post([FromBody] UsuarioDto usuarioDto)
         {
-            var result = _usuarioService.GuardarUsuarioAsync(usuarioDto);
-            if (!result.IsCompleted)
+            var result = await _usuarioService.GuardarUsuarioAsync(usuarioDto);
+            if (!result.IsSuccess)
             {
                 return BadRequest(result);
             }

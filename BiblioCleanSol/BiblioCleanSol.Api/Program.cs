@@ -28,11 +28,13 @@ namespace BiblioCleanSol.Api
             builder.Services.AddScoped<IAutorRepo, AutorRepository>();
             builder.Services.AddScoped<ICategoriaRepo, CategoriaRepository>();
             builder.Services.AddScoped<IUsuarioRepo, UsuarioRepository>();
+            builder.Services.AddScoped<IEstadosRepo, EstadosRepository>();
 
             //Service
             builder.Services.AddTransient<IAutorService, AutorService>();
             builder.Services.AddTransient<ICategoriaService, CategoriaService>();
             builder.Services.AddTransient<IUsuarioService, UsuarioService>();
+            builder.Services.AddTransient<IEstadosService, EstadosService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
