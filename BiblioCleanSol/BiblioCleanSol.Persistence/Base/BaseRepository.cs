@@ -94,9 +94,10 @@ namespace BiblioCleanSol.Persistence.Base
                 await _dbContext.SaveChangesAsync();
                 opResult = OperationResult.Success($"Entidad {typeof(TEntity)} agregada con existo!", entity);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 opResult = OperationResult.Failure($"Error guardando entidad {typeof(TEntity)} en la BD.");
+                return opResult;
             }
             return opResult;
         }

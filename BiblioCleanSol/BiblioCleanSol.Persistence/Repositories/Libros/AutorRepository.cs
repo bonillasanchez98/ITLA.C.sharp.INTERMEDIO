@@ -44,7 +44,7 @@ namespace BiblioCleanSol.Persistence.Repositories.Libros
             {
                 result = OperationResult.Failure("El nombre del autor no puede ser nulo");
             }
-            if(!Regex.IsMatch(autor.Nombre, ExpresionesReg.STRING_PATTERN))
+            if(Regex.IsMatch(autor.Nombre, ExpresionesReg.STRING_PATTERN))
             {
                 result = OperationResult.Failure("El nombre esta en formato invalido");
             }

@@ -7,7 +7,7 @@
         public string Correo { get; set; } = String.Empty;
         public string Clave { get; set; } = String.Empty;
 
-        public int Rol_id { get; set; }
+        public byte Rol_id { get; set; }
         public bool Habilitado { get; set; }
 
     }

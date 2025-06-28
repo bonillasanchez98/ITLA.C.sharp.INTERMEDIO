@@ -9,9 +9,9 @@ namespace BiblioCleanSol.Domain.Entities.Seguridad
     {
         [Key]
         [Column("id_Rol")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public byte RolId { get; set; }
         
-        [Column("Nombre")]
         public string Nombre { get; set; }
     }
 }

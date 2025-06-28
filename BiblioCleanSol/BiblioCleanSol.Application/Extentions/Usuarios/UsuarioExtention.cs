@@ -13,7 +13,7 @@ namespace BiblioCleanSol.Application.Extentions.Usuarios
                 Apellido = usuarioDto.Apellido,
                 Correo = usuarioDto.Correo,
                 Clave = usuarioDto.Clave,
-                Rol_id = (byte)usuarioDto.Rol_id
+                Rol_id = usuarioDto.Rol_id
             };
         }
 
@@ -26,7 +26,7 @@ namespace BiblioCleanSol.Application.Extentions.Usuarios
                 Apellido = usuarioEditarDto.Apellido,
                 Correo = usuarioEditarDto.Correo,
                 Clave = usuarioEditarDto.Clave,
-                Rol_id = (byte)usuarioEditarDto.Rol_id,
+                Rol_id = usuarioEditarDto.Rol_id,
                 elimino = usuarioEditarDto.Habilitado
             };
         }

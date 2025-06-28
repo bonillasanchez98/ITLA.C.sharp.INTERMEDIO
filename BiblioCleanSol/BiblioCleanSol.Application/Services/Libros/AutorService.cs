@@ -78,7 +78,7 @@ namespace BiblioCleanSol.Application.Services.Libros
             try
             {
                 //Por cada validacion que se haga se debe de crear un caso de prueba (Prueba Unitaria)
-                _logger.LogInformation($"Agregando un nuevo Autor: {autor.Nombre}");
+                _logger.LogInformation($"Agregando un nuevo Autor: {autor.Nombre} {autor.Apellido}");
 
                 if (autor is null) //Caso de prueba: GuardarAutorAsyncIsNull
                 {
@@ -86,15 +86,14 @@ namespace BiblioCleanSol.Application.Services.Libros
                     return result;
                 }
                 var existe = await _repo.ExisteAsyn(a => a.Nombre == autor.Nombre);
-                if (existe != null) //Caso de prueba: GuardarAutorAsyncExisteNombre
+                if (!existe.IsSuccess) //Caso de prueba: GuardarAutorAsyncExisteNombre
                 {
                     result = OperationResult.Failure($"Ya existe un autor de nombre: {autor.Nombre}");
                     return result;
                 }
 
-                await _repo.GuardarAsync(AutorExtention.ToAutorEntityFromAutorDtoAgregar(autor));
+                return await _repo.GuardarAsync(AutorExtention.ToAutorEntityFromAutorDtoAgregar(autor));
 
-                return result;
             }
             catch (Exception ex)
             {

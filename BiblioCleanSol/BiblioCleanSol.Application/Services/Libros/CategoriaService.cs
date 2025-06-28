@@ -119,13 +119,13 @@ namespace BiblioCleanSol.Application.Services.Libros
                 var categoriaResult = await _repo.ObtenerTodosAsync(c => c.elimino == false);
                 if (categoriaResult.IsSuccess)
                 {
+                    _logger.LogInformation("Obtencion de categorias exitosa!");
                     result = OperationResult.Success($"Categorias obtenidas", categoriaResult.Data);
                 }
                 else
                 {
                     result = OperationResult.Failure("Fallo al intentar obtener a las categorias");
                 }
-                _logger.LogInformation("Obtencion de categorias exitosa!");
 
             }
             catch (Exception ex)
